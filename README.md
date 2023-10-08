@@ -10,7 +10,7 @@ user profile w bio profile pic and posts
 Green white and black colors repping FSC
 Pinterest layout where pictures of outfits will be layout in rows
 DM feature between customers and vendors 
-Social media likes and comments on posts???
+Social media likes and comments on posts??
 A search feature and different categories (like sustainable clothes since FSC is big on that)
 # specifications (and interface needs)
 User authentication 
