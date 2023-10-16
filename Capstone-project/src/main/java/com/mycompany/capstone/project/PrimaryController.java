@@ -10,6 +10,6 @@ public class PrimaryController {
         App.setRoot("secondary");
         System.out.println("Test");
         System.out.println("TEST MERGE");
-        System.out.println("Sher was here");
+        System.out.println("Sher  was here");
     }
 }
