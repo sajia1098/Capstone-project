@@ -8,8 +8,6 @@ package com.mycompany.capstone.project;
  *
  * @author amnasajid
  */
-
-
 /**
  *
  * @author amnasajid
@@ -37,7 +35,6 @@ public class user {
         id = "";
     }
     
-
     public String getFirstName() {
         return firstName;
     }
