@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -12,7 +13,10 @@
    <children>
       <SplitPane dividerPositions="0.1670854271356784" layoutX="3.0" layoutY="-3.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="44.0" prefWidth="598.0" />
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="44.0" prefWidth="598.0">
+               <children>
+                  <TextField layoutX="63.0" layoutY="19.0" prefHeight="26.0" prefWidth="343.0" />
+               </children></AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="333.0" prefWidth="611.0">
                <children>
                   <SplitPane dividerPositions="0.3" layoutX="-1.0" prefHeight="330.0" prefWidth="600.0">
