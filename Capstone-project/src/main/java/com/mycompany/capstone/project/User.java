@@ -12,7 +12,7 @@ package com.mycompany.capstone.project;
  *
  * @author amnasajid
  */
-public class user {
+public class User {
     private String firstName;
     private String lastName;
     private String password;
@@ -21,14 +21,14 @@ public class user {
     //date joined
     //
 
-    public user(String firstName, String lastName, String password, String id) {
+    public User(String firstName, String lastName, String password, String id) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
         this.id = id;
     }
     
-    public user() {
+    public User() {
         firstName = "";
         lastName = "";
         password = "";
