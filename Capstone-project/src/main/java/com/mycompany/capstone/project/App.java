@@ -1,16 +1,19 @@
 package com.mycompany.capstone.project;
 
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.firestore.Firestore;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
+import com.google.firebase.cloud.FirestoreClient;
+import com.google.firebase.database.FirebaseDatabase;
 import java.io.FileInputStream;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
-import com.google.auth.oauth2.GoogleCredentials;
 import java.io.IOException;
-
+import static javafx.application.Application.launch;
 
 /**
  * JavaFX App
@@ -18,16 +21,16 @@ import java.io.IOException;
 public class App extends Application {
 
     private static Scene scene;
+    public static Firestore fstore; //access firestore
+    private final FireStoreContext contxtFirebase = new FireStoreContext();
 
     @Override
     public void start(Stage stage) throws IOException {
-        
-         FileInputStream serviceAccount = new FileInputStream("key.json");
+        // Initialize Firebase Firestore through the FireStoreContext
+        contxtFirebase.firebase();
 
-         FirebaseOptions options = new FirebaseOptions.Builder()
-                 .setCredentials(GoogleCredentials.fromStream(serviceAccount)).build();
-         FirebaseApp.initializeApp(options);
-        
+        // Access Firestore instance
+        fstore = FirestoreClient.getFirestore();
         scene = new Scene(loadFXML("primary"), 640, 480);
         stage.setScene(scene);
         stage.show();
@@ -47,8 +50,3 @@ public class App extends Application {
     }
 
 }
-
-
-/*
- 
-*/

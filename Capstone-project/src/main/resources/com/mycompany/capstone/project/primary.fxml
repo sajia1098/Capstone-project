@@ -22,7 +22,7 @@
                   <Font name="System Bold" size="36.0" />
                </font>
             </Label>
-            <Button fx:id="bnNeedAccount" layoutX="100.0" layoutY="291.0" mnemonicParsing="false" text="Need an account?">
+            <Button fx:id="bnNeedAccount" layoutX="100.0" layoutY="291.0" mnemonicParsing="false" onAction="#switchToSecondary" text="Need an account?">
                <font>
                   <Font size="16.0" />
                </font>
