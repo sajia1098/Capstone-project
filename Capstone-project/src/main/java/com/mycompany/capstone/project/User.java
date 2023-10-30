@@ -13,10 +13,10 @@ package com.mycompany.capstone.project;
  * @author amnasajid
  */
 public class User {
-    private String firstName;
-    private String lastName;
-    private String password;
-    private String id;
+    protected String firstName;
+    protected String lastName;
+    protected String password;
+    protected String id;
     //email
     //date joined
     //
@@ -29,10 +29,10 @@ public class User {
     }
     
     public User() {
-        firstName = "";
-        lastName = "";
-        password = "";
-        id = "";
+        this.firstName = "";
+        this.lastName = "";
+        this.password = "";
+        this.id = "";
     }
     
     public String getFirstName() {

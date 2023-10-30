@@ -1,12 +1,7 @@
 package com.mycompany.capstone.project;
 
-import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.Firestore;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
-import com.google.firebase.database.FirebaseDatabase;
-import java.io.FileInputStream;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -31,8 +26,9 @@ public class App extends Application {
 
         // Access Firestore instance
         fstore = FirestoreClient.getFirestore();
-        scene = new Scene(loadFXML("primary"), 640, 480);
+        scene = new Scene(loadFXML("login"), 700, 500);
         stage.setScene(scene);
+        stage.setTitle("RamThrift");
         stage.show();
     }
 
