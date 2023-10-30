@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.capstone.project.PrimaryController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.capstone.project.LoginController">
    <left>
       <AnchorPane prefHeight="200.0" prefWidth="350.0" style="-fx-background-color: #0598ff;" BorderPane.alignment="CENTER">
          <children>
@@ -33,26 +33,26 @@
    <right>
       <AnchorPane prefHeight="500.0" prefWidth="525.0" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="77.0" layoutY="158.0" text="Login with an existing email">
+            <Label layoutX="48.0" layoutY="154.0" text="Login with an existing Ram ID">
                <font>
-                  <Font size="16.0" />
+                  <Font size="20.0" />
                </font>
             </Label>
-            <TextField layoutX="20.0" layoutY="200.0" prefHeight="40.0" prefWidth="310.0" promptText="E-mail">
+            <TextField fx:id="tfRamid" layoutX="20.0" layoutY="200.0" prefHeight="40.0" prefWidth="310.0" promptText="Ram ID">
                <font>
                   <Font size="16.0" />
                </font>
             </TextField>
-            <Button layoutX="140.0" layoutY="317.0" mnemonicParsing="false" text="Login">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Button>
-            <PasswordField layoutX="21.0" layoutY="260.0" prefHeight="40.0" prefWidth="310.0" promptText="Password">
+            <PasswordField fx:id="pfPassword" layoutX="21.0" layoutY="260.0" prefHeight="40.0" prefWidth="310.0" promptText="Password">
                <font>
                   <Font size="16.0" />
                </font>
             </PasswordField>
+            <Button fx:id="bnLogin" layoutX="140.0" layoutY="317.0" mnemonicParsing="false" onAction="#loginButtonClicked" text="Login">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </right>
