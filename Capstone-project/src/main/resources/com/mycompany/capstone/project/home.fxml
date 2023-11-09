@@ -16,6 +16,7 @@
                <children>
                   <TextField layoutX="116.0" layoutY="19.0" prefHeight="26.0" prefWidth="116.0" promptText="Search item here" />
                   <Button layoutX="397.0" layoutY="20.0" mnemonicParsing="false" onAction="#uploadImage" text="Upload" />
+                  <Button layoutX="561.0" layoutY="20.0" mnemonicParsing="false" onAction="#showImage" text="Show All Images" />
                </children></AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="427.0" prefWidth="952.0">
                <children>
