@@ -123,7 +123,9 @@ public class UploadImages_database {
 
     @FXML
     private void showImage(ActionEvent event) {
+        //Clears flowpane before pulling images from database
         flowPane.getChildren().clear();
+        
         // Get the Firebase Storage bucket
         FirebaseApp firebaseApp = FirebaseApp.getInstance();
         Storage storage = StorageClient.getInstance(firebaseApp).bucket("csc325-capstone.appspot.com").getStorage();
