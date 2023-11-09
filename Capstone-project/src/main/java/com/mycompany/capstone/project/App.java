@@ -17,19 +17,24 @@ public class App extends Application {
 
     private static Scene scene;
     public static Firestore fstore; //access firestore
-    private final FireStoreContext contxtFirebase = new FireStoreContext();
 
     @Override
-    public void start(Stage stage) throws IOException {
-        // Initialize Firebase Firestore through the FireStoreContext
-        contxtFirebase.firebase();
+    public void start(Stage stage) {
 
-        // Access Firestore instance
-        fstore = FirestoreClient.getFirestore();
-        scene = new Scene(loadFXML("login"), 700, 500);
-        stage.setScene(scene);
-        stage.setTitle("RamThrift");
-        stage.show();
+        try {
+            //Initialize Firebase Firestore through the FireStoreContext
+            FireStoreContext contxtFirebase = new FireStoreContext();
+            // Access Firestore instance
+            fstore = contxtFirebase.firebase();
+
+            //Load scene
+            scene = new Scene(loadFXML("login"), 954, 654);
+            stage.setScene(scene);
+            stage.setTitle("RamThrift");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     static void setRoot(String fxml) throws IOException {
@@ -44,5 +49,4 @@ public class App extends Application {
     public static void main(String[] args) {
         launch();
     }
-
 }

@@ -21,6 +21,7 @@ public class FireStoreContext {
                 FirebaseOptions options = new FirebaseOptions.Builder()
                         .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                         .setDatabaseUrl("https://csc325-capstone.firebaseio.com")
+                        .setStorageBucket("csc325-capstone.appspot.com")
                         .build();
 
                 // Initialize the Firebase app

@@ -6,21 +6,35 @@ package com.mycompany.capstone.project;
 
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.CollectionReference;
-import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.WriteResult;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import com.google.cloud.firestore.DocumentReference;
+import com.google.cloud.firestore.Firestore;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
+
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import com.google.cloud.storage.*;
+import com.google.firebase.cloud.StorageClient;
+import java.io.*;
+import java.nio.file.Files;
+import java.util.UUID;
+import com.google.firebase.FirebaseApp;
+import com.google.auth.oauth2.GoogleCredentials;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -31,6 +45,12 @@ public class UploadImages_database {
     @FXML
     private FlowPane flowPane;
 
+    // Constructor
+    public UploadImages_database() {
+        // Assuming FireStoreContext initializes FirebaseApp
+        new FireStoreContext();
+    }
+
     public void initialize() {
         flowPane.setHgap(20); // Horizontal gap between images
         flowPane.setVgap(15); // Vertical gap between images
@@ -39,81 +59,63 @@ public class UploadImages_database {
     @FXML
     private void uploadImage() {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.bmp"));
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.bmp")
+        );
         fileChooser.setTitle("Select Image Files");
 
         List<File> selectedFiles = fileChooser.showOpenMultipleDialog(null);
 
         if (selectedFiles != null) {
-            for (int i = 0; i < selectedFiles.size(); i += 2) {
-                // Create a VBox to contain the image and description
-                VBox imageAndDescription = new VBox();
-
-                for (int j = 0; j < 2 && i + j < selectedFiles.size(); j++) {
-                    File selectedFile = selectedFiles.get(i + j);
-
-                    // Load the selected image
-                    Image image = new Image(selectedFile.toURI().toString());
-
-                    // Create an ImageView for the image
-                    ImageView imageView = new ImageView(image);
-                    imageView.setFitWidth(200);
-                    imageView.setPreserveRatio(true);
-
-
-                    Label descriptionLabel = new Label("Description goes here"); 
-                    //Label descriptionLabel = new Label(item.getDescription()); 
-
-                    // Add the ImageView and TextField to the VBox
-                    imageAndDescription.getChildren().addAll(imageView, descriptionLabel);
-                }
-
-                // Add the VBox containing the image and description to the FlowPane
-                flowPane.getChildren().add(imageAndDescription);
+            for (File file : selectedFiles) {
+                uploadFileToFirebaseStorage(file);
             }
-             
         }
-        
-       
+
     }
-    
-    
 
-    public void addItemtoDatabase(Item item) {
-        // Assuming item.getId() returns a unique identifier for the item
-        CollectionReference itemsCollection = App.fstore.collection("Items");
-
-        // Create a map to store the item's data
-        Map<String, Object> data = new HashMap<>();
-        data.put("Description", item.getDescription());
-        data.put("Price", item.getPrice());
-        data.put("Condition", item.getCondition());
-        
-        
-        //checks if item is an istance of any other class then gets the attributs and put them in the database
-        if (item instanceof TextBook) {
-            TextBook textbook = (TextBook) item;
-
-            data.put("Title", textbook.getTitle());
-            data.put("ISBN", textbook.getIsbn());
-            data.put("Edition", textbook.getEdition());
-        } else if (item instanceof Wearable) {
-            Wearable wearable = (Wearable) item;
-            data.put("Gender", wearable.getGender());
-            data.put("Size", wearable.getSize());
-            data.put("Brand", wearable.getBrand());
-            data.put("Material", wearable.getMaterial());
-            data.put("Color", wearable.getColor());
-        } // and for all classes 
-
-        // Asynchronously write data
+    private void uploadFileToFirebaseStorage(File file) {
+        //Check if firebase has been initalized and get app
+        if (FirebaseApp.getApps().isEmpty()) {
+            System.out.println("Firebase has not been initalized");
+            return;
+        }
         try {
-            ApiFuture<DocumentReference> result = itemsCollection.add(data);
-            DocumentReference documentReference = result.get();
-            System.out.println("Item added with auto-generated ID: " + documentReference.getId());
+            //get default app instance
+            FirebaseApp firebaseApp = FirebaseApp.getInstance();
+
+            //get storage instance from firebaseapp
+            Storage storage = StorageClient.getInstance(firebaseApp).bucket("csc325-capstone.appspot.com").getStorage();
+
+            // Prepare file to be uploaded
+            String objectName = UUID.randomUUID().toString();
+            String contentType = Files.probeContentType(file.toPath());
+            BlobId blobId = BlobId.of("csc325-capstone.appspot.com", objectName);
+            BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType(contentType).build();
+
+            // Upload the file to Firebase Storage
+            Blob blob = storage.create(blobInfo, Files.readAllBytes(file.toPath()));
+
+            // Generate a signed URL for the blob with a long expiration time
+        URL signedUrl = storage.signUrl(blobInfo, 7, TimeUnit.DAYS, Storage.SignUrlOption.withV4Signature());
+            
+            //use storageclient to get download URL
+            String imageUrl = signedUrl.toString();
+
+            //Update the UI
+            javafx.application.Platform.runLater(() -> {
+                Image image = new Image(imageUrl);
+                ImageView imageView = new ImageView(image);
+                imageView.setFitWidth(250);
+                imageView.setPreserveRatio(true);
+                Label descriptionLabel = new Label("Description goes here");
+                VBox imageAndDescription = new VBox(imageView, descriptionLabel);
+                flowPane.getChildren().add(imageAndDescription);
+            });
+
         } catch (Exception e) {
-            System.err.println("Error adding item data to Firestore: " + e.getMessage());
+            System.err.println("Exception occurred while uploading file to Firebase Storage: " + e.getMessage());
+            e.printStackTrace();
         }
     }
-
 }
