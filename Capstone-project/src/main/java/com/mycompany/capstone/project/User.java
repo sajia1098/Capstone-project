@@ -17,10 +17,7 @@ public class User {
     protected String lastName;
     protected String password;
     protected String id;
-    //email
-    //date joined
-    //
-
+   
     public User(String firstName, String lastName, String password, String id) {
         this.firstName = firstName;
         this.lastName = lastName;
