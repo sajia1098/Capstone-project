@@ -8,28 +8,29 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.capstone.project.UploadImages_database">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="654.0" prefWidth="954.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.capstone.project.UploadImages_database">
    <children>
-      <SplitPane dividerPositions="0.1670854271356784" layoutX="3.0" layoutY="-3.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0">
+      <SplitPane dividerPositions="0.1670854271356784" layoutX="3.0" layoutY="-3.0" orientation="VERTICAL" prefHeight="660.0" prefWidth="954.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="44.0" prefWidth="598.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="327.0" prefWidth="943.0">
                <children>
                   <TextField layoutX="116.0" layoutY="19.0" prefHeight="26.0" prefWidth="116.0" promptText="Search item here" />
                   <Button layoutX="397.0" layoutY="20.0" mnemonicParsing="false" onAction="#uploadImage" text="Upload" />
+                  <Button layoutX="561.0" layoutY="20.0" mnemonicParsing="false" onAction="#showImage" text="Show All Images" />
                </children></AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="333.0" prefWidth="611.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="427.0" prefWidth="952.0">
                <children>
-                  <SplitPane dividerPositions="0.2" layoutX="-1.0" prefHeight="330.0" prefWidth="600.0">
+                  <SplitPane dividerPositions="0.2" layoutX="-1.0" prefHeight="545.0" prefWidth="952.0">
                      <items>
-                        <Pane prefHeight="328.0" prefWidth="200.0">
+                        <Pane prefHeight="543.0" prefWidth="206.0">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="88.0" prefWidth="116.0" text="Books" />
-                              <Button layoutY="88.0" mnemonicParsing="false" prefHeight="88.0" prefWidth="116.0" text="Clothes" />
-                              <Button layoutY="176.0" mnemonicParsing="false" prefHeight="88.0" prefWidth="116.0" text="Tech" />
+                              <Button mnemonicParsing="false" prefHeight="94.0" prefWidth="187.0" text="Books" />
+                              <Button layoutY="88.0" mnemonicParsing="false" prefHeight="107.0" prefWidth="187.0" text="Clothes" />
+                              <Button layoutY="193.0" mnemonicParsing="false" prefHeight="107.0" prefWidth="187.0" text="Tech" />
                            </children></Pane>
                         <ScrollPane prefHeight="318.0" prefWidth="396.0">
                            <content>
-                              <FlowPane fx:id="flowPane" prefHeight="323.0" prefWidth="471.0" />
+                              <FlowPane fx:id="flowPane" prefHeight="543.0" prefWidth="757.0" />
                            </content>
                         </ScrollPane>
                      </items>
