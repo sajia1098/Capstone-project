@@ -10,6 +10,10 @@ package com.mycompany.capstone.project;
  */
 public class Shoes extends Wearable  {
    
+    public Shoes(String gender, String size, String material, String color, String brand, String description, double price, String condition) {
+        super(gender, size, material, color, brand, description, price, condition);
+    }
+   
    
    
     
