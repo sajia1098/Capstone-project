@@ -6,6 +6,7 @@ package com.mycompany.capstone.project;
 
 import com.google.api.gax.paging.Page;
 import java.io.File;
+import javafx.fxml.Initializable;
 import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -20,27 +21,41 @@ import java.nio.file.Files;
 import java.util.UUID;
 import com.google.firebase.FirebaseApp;
 import java.net.URL;
+import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.scene.control.ComboBox;
 
 /**
  *
  * @author amnasajid
  */
-public class UploadImages_database {
+public class UploadImages_database implements Initializable{
 
     @FXML
     private FlowPane flowPane;
+    @FXML
+    private ComboBox comboBox;
+   
 
     // Constructor
     public UploadImages_database() {
         // Assuming FireStoreContext initializes FirebaseApp
         FireStoreContext fireStoreContext = new FireStoreContext();
     }
-
-    public void initialize() {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        ObservableList<String> items = FXCollections.observableArrayList(
+                "View Profile",
+                "Settings"            
+        );
+        comboBox.setItems(items);
+        comboBox.setValue("......");
         flowPane.setHgap(20); // Horizontal gap between images
         flowPane.setVgap(15); // Vertical gap between images
+        
     }
 
     @FXML
