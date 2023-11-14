@@ -4,37 +4,22 @@
  */
 package com.mycompany.capstone.project;
 
-import com.google.api.core.ApiFuture;
 import com.google.api.gax.paging.Page;
-import com.google.cloud.firestore.CollectionReference;
-import com.google.cloud.firestore.WriteResult;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
-import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.Firestore;
 import java.io.File;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
-
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import com.google.cloud.storage.*;
 import com.google.firebase.cloud.StorageClient;
-import java.io.*;
 import java.nio.file.Files;
 import java.util.UUID;
 import com.google.firebase.FirebaseApp;
-import com.google.auth.oauth2.GoogleCredentials;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeUnit;
 import javafx.event.ActionEvent;
 
@@ -50,7 +35,7 @@ public class UploadImages_database {
     // Constructor
     public UploadImages_database() {
         // Assuming FireStoreContext initializes FirebaseApp
-        new FireStoreContext();
+        FireStoreContext fireStoreContext = new FireStoreContext();
     }
 
     public void initialize() {

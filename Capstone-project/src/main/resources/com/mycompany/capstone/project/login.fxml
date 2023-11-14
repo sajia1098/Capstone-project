@@ -4,38 +4,40 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.capstone.project.LoginController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.capstone.project.LoginController">
    <left>
-      <AnchorPane prefHeight="200.0" prefWidth="350.0" style="-fx-background-color: #0598ff;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="200.0" prefWidth="350.0" style="-fx-background-color: #000000;" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="90.0" layoutY="102.0" text="RamThrift" textFill="WHITE">
+            <Label layoutX="37.0" layoutY="238.0" text="Welcome back!" textFill="WHITE">
                <font>
-                  <Font name="System Bold" size="36.0" />
+                  <Font name="Lovelo Black" size="36.0" />
                </font>
             </Label>
-            <Label layoutX="46.0" layoutY="197.0" text="Welcome back!" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="36.0" />
-               </font>
-            </Label>
-            <Button fx:id="bnNeedAccount" layoutX="100.0" layoutY="291.0" mnemonicParsing="false" onAction="#switchToSecondary" text="Need an account?">
+            <Button fx:id="bnNeedAccount" layoutX="94.0" layoutY="322.0" mnemonicParsing="false" onAction="#switchToSecondary" text="Need an account?">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
+            <ImageView fitHeight="176.0" fitWidth="260.0" layoutX="34.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Screenshot%202023-11-13%20at%209.05.46%20PM.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </left>
    <right>
-      <AnchorPane prefHeight="500.0" prefWidth="525.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="500.0" prefWidth="525.0" style="-fx-background-color: #416663;" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="48.0" layoutY="154.0" text="Login with an existing Ram ID">
+            <Label layoutX="23.0" layoutY="153.0" text="Login with an existing Ram ID" textFill="WHITE">
                <font>
-                  <Font size="20.0" />
+                  <Font name="Lovelo Black" size="20.0" />
                </font>
             </Label>
             <TextField fx:id="tfRamid" layoutX="20.0" layoutY="200.0" prefHeight="40.0" prefWidth="310.0" promptText="Ram ID">
