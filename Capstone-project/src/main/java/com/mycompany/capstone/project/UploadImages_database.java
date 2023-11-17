@@ -20,6 +20,7 @@ import com.google.firebase.cloud.StorageClient;
 import java.nio.file.Files;
 import java.util.UUID;
 import com.google.firebase.FirebaseApp;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
@@ -38,6 +39,8 @@ public class UploadImages_database implements Initializable{
     private FlowPane flowPane;
     @FXML
     private ComboBox comboBox;
+    @FXML
+    private ImageView pfp;
    
 
     // Constructor
@@ -150,5 +153,10 @@ public class UploadImages_database implements Initializable{
                 flowPane.getChildren().add(imageAndDescription);
             });
         }
+    }
+
+    @FXML
+    private void switchToForm(ActionEvent event) throws IOException {
+        App.setRoot("productform");
     }
 }
