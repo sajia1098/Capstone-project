@@ -1,4 +1,4 @@
-package com.mycompany.capstone.project;
+package project;
 
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.Firestore;
@@ -9,8 +9,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 public class FireStoreContext {
-//initialize firebase 
 
+    // Initialize Firebase
     public Firestore firebase() {
         try {
             // Check if Firebase has already been initialized
@@ -28,10 +28,14 @@ public class FireStoreContext {
                 FirebaseApp.initializeApp(options);
             }
 
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-            // Initialize Firestore and return it
+            // Return the Firestore instance
             return FirestoreClient.getFirestore();
+
+        } catch (IOException ex) {
+            // Handle the exception appropriately (e.g., log it)
+            ex.printStackTrace();
+            // Return null or throw a specific exception depending on your use case
+            return null;
+        }
     }
 }

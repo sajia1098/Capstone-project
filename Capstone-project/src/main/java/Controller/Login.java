@@ -1,4 +1,4 @@
-package com.mycompany.capstone.project;
+package Controller;
 
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
@@ -11,8 +11,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import project.App;
+import project.FireStoreContext;
 
-public class LoginController {
+public class Login {
 
     @FXML
     private Button bnNeedAccount;
@@ -25,7 +27,7 @@ public class LoginController {
 
     private Firestore db;
     
-    public LoginController() {
+    public Login() {
         FireStoreContext fireStoreContext = new FireStoreContext();
         this.db = fireStoreContext.firebase();
     }

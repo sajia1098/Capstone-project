@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.capstone.project;
+package Controller;
 
 import com.google.api.gax.paging.Page;
 import java.io.File;
@@ -27,24 +27,34 @@ import java.util.concurrent.TimeUnit;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import project.App;
+import project.FireStoreContext;
 
 /**
  *
  * @author amnasajid
  */
-public class UploadImages_database implements Initializable{
+public class UploadImages_toDatabase implements Initializable{
 
     @FXML
     private FlowPane flowPane;
     @FXML
     private ComboBox comboBox;
     @FXML
+    private Button uploadFormButton;
+    @FXML
     private ImageView pfp;
+    @FXML
+    private ImageView ppfp;
    
 
     // Constructor
-    public UploadImages_database() {
+    public UploadImages_toDatabase() {
         // Assuming FireStoreContext initializes FirebaseApp
         FireStoreContext fireStoreContext = new FireStoreContext();
     }
@@ -61,69 +71,7 @@ public class UploadImages_database implements Initializable{
         
     }
 
-    @FXML
-    private void uploadImage() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.bmp")
-        );
-        fileChooser.setTitle("Select Image Files");
-
-        List<File> selectedFiles = fileChooser.showOpenMultipleDialog(null);
-
-        if (selectedFiles != null) {
-            for (File file : selectedFiles) {
-                uploadFileToFirebaseStorage(file);
-            }
-        }
-
-    }
-
-    private void uploadFileToFirebaseStorage(File file) {
-        //Check if firebase has been initalized and get app
-        if (FirebaseApp.getApps().isEmpty()) {
-            System.out.println("Firebase has not been initalized");
-            return;
-        }
-        try {
-            //get default app instance
-            FirebaseApp firebaseApp = FirebaseApp.getInstance();
-
-            //get storage instance from firebaseapp
-            Storage storage = StorageClient.getInstance(firebaseApp).bucket("csc325-capstone.appspot.com").getStorage();
-
-            // Prepare file to be uploaded
-            String objectName = UUID.randomUUID().toString();
-            String contentType = Files.probeContentType(file.toPath());
-            BlobId blobId = BlobId.of("csc325-capstone.appspot.com", objectName);
-            BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType(contentType).build();
-
-            // Upload the file to Firebase Storage
-            Blob blob = storage.create(blobInfo, Files.readAllBytes(file.toPath()));
-
-            // Generate a signed URL for the blob with a long expiration time
-            URL signedUrl = storage.signUrl(blobInfo, 7, TimeUnit.DAYS, Storage.SignUrlOption.withV4Signature());
-
-            //use storageclient to get download URL
-            String imageUrl = signedUrl.toString();
-
-            //Update the UI
-            javafx.application.Platform.runLater(() -> {
-                Image image = new Image(imageUrl);
-                ImageView imageView = new ImageView(image);
-                imageView.setFitWidth(250);
-                imageView.setPreserveRatio(true);
-                Label descriptionLabel = new Label("Description goes here");
-                VBox imageAndDescription = new VBox(imageView, descriptionLabel);
-                flowPane.getChildren().add(imageAndDescription);
-            });
-
-        } catch (Exception e) {
-            System.err.println("Exception occurred while uploading file to Firebase Storage: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
+  
     @FXML
     private void showImage(ActionEvent event) {
         //Clears flowpane before pulling images from database
@@ -155,8 +103,9 @@ public class UploadImages_database implements Initializable{
         }
     }
 
-    @FXML
-    private void switchToForm(ActionEvent event) throws IOException {
+   @FXML
+    private void uploadButton() throws IOException{
         App.setRoot("productform");
+        
     }
 }

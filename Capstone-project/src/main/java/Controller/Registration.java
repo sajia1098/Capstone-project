@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
-package com.mycompany.capstone.project;
+package Controller;
 
+import Model.User;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.QuerySnapshot;
@@ -29,13 +30,14 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import project.App;
 
 /**
  * FXML Controller class
  *
  * @author amnasajid
  */
-public class RegistrationController implements Initializable {
+public class Registration implements Initializable {
 
     @FXML
     private TextField first_name;
@@ -55,10 +57,6 @@ public class RegistrationController implements Initializable {
     private User user;
     @FXML
     private Button backToLogin;
-    @FXML
-    private PasswordField pfPassword;
-    @FXML
-    private PasswordField pfConfirmPassword;
 
     public ObservableList<User> getListOfUsers() {
         return listOfUsers;
@@ -99,35 +97,34 @@ public class RegistrationController implements Initializable {
 
     @FXML
     private void signupButtonClicked(javafx.event.ActionEvent event) throws IOException {
-        if (areFieldsEmpty()) {
-            //If any fields are empty, show an alert
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Validation Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Please fill in all fields.");
-            alert.showAndWait();
-        } else if (!doPasswordsMatch()) {
-            //If passwords do not match, show an alert
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Validation Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Passwords do not match.");
-            alert.showAndWait();
-        } else {
-            //Otherwise, proceed with registration
-            registerUser();
-            addData();
-            //Show success message
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Registration Successful");
-            alert.setHeaderText(null);
-            alert.setContentText("You have successfully registered!");
-            alert.showAndWait();
-            //Go back to login screen
-            App.setRoot("login");
-        }
+    if (areFieldsEmpty()) {
+        // If any fields are empty, show an alert
+        showAlert("Validation Error", "Please fill in all fields.");
+    } else if (password.getText().length() < 6) {
+        // If password is too short, show an alert
+        showAlert("Validation Error", "Password must be at least 6 characters long.");
+    } else if (!doPasswordsMatch()) {
+        // If passwords do not match, show an alert
+        showAlert("Validation Error", "Passwords do not match.");
+    } else {
+        // Otherwise, proceed with registration
+        registerUser();
+        addData();
+        // Show success message
+        showAlert("Registration Successful", "You have successfully registered!");
+        // Go back to login screen
+        App.setRoot("login");
     }
+}
 
+// Helper method to show an alert
+private void showAlert(String title, String content) {
+    Alert alert = new Alert(Alert.AlertType.WARNING);
+    alert.setTitle(title);
+    alert.setHeaderText(null);
+    alert.setContentText(content);
+    alert.showAndWait();
+}
     public void addData() {
         DocumentReference docRef = App.fstore.collection("Users").document(ramid.getText().trim());
         // Add document data with ID using a hashmap
@@ -175,15 +172,7 @@ public class RegistrationController implements Initializable {
     }
 
     
-    //Look into making show password
-    //Replace textfields for passwords with passwordfields to make it more secure
-    @FXML
-    private void HidePasswordOnAction(KeyEvent event) {
-    }
 
-    @FXML
-    private void ShowPasswordOnAction(KeyEvent event) {
-    }
 
     @FXML
     private void Close_Eye_ClickOnAction(MouseEvent event) {

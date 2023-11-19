@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="654.0" prefWidth="954.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UploadImages_toDatabase">
+    <children>
+        <SplitPane dividerPositions="0.1670854271356784" layoutX="3.0" layoutY="-3.0" orientation="VERTICAL" prefHeight="660.0" prefWidth="954.0">
+            <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="327.0" prefWidth="943.0">
+                    <children>
+                        <TextField layoutX="42.0" layoutY="20.0" prefHeight="26.0" prefWidth="319.0" promptText="Search item here" />
+                        <Button fx:id="uploadFormButton" layoutX="397.0" layoutY="20.0" mnemonicParsing="false" onAction="#uploadButton" text="Upload" />
+                        <Button layoutX="476.0" layoutY="20.0" mnemonicParsing="false" onAction="#showImage" text="Show All Images" />
+                        <ImageView id="pfp" fx:id="pfp" fitHeight="54.0" fitWidth="57.0" layoutX="780.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                        <ComboBox fx:id="comboBox" layoutX="787.0" layoutY="20.0" prefHeight="26.0" prefWidth="129.0" promptText="..." />
+                        <ImageView fx:id="ppfp" fitHeight="42.0" fitWidth="57.0" layoutX="709.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@Screenshot%202023-11-13%20at%209.05.46%20PM.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="427.0" prefWidth="952.0">
+                    <children>
+                        <SplitPane dividerPositions="0.2" layoutX="-1.0" prefHeight="545.0" prefWidth="952.0">
+                            <items>
+                                <Pane prefHeight="543.0" prefWidth="206.0">
+                                    <children>
+                                        <Button mnemonicParsing="false" prefHeight="94.0" prefWidth="187.0" text="Books" />
+                                        <Button layoutY="88.0" mnemonicParsing="false" prefHeight="107.0" prefWidth="187.0" text="Clothes" />
+                                        <Button layoutY="193.0" mnemonicParsing="false" prefHeight="107.0" prefWidth="187.0" text="Tech" />
+                                    </children>
+                                </Pane>
+                                <ScrollPane prefHeight="318.0" prefWidth="396.0">
+                                    <content>
+                                        <FlowPane fx:id="flowPane" prefHeight="543.0" prefWidth="757.0" />
+                                    </content>
+                                </ScrollPane>
+                            </items>
+                        </SplitPane>
+                    </children>
+                </AnchorPane>
+            </items>
+        </SplitPane>
+    </children>
+</AnchorPane>
