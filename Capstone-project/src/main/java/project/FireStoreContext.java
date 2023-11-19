@@ -1,4 +1,4 @@
-package com.mycompany.capstone.project;
+package project;
 
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.Firestore;
@@ -29,7 +29,6 @@ public class FireStoreContext {
             }
 
         } catch (IOException ex) {
-            ex.printStackTrace();
         }
             // Initialize Firestore and return it
             return FirestoreClient.getFirestore();

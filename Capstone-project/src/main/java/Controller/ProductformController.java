@@ -1,11 +1,13 @@
-package com.mycompany.capstone.project;
+package Controller;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
 
+import java.io.File;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,6 +16,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
 
 /**
  * FXML Controller class
@@ -52,3 +55,6 @@ public class ProductformController implements Initializable {
     }    
     
 }
+    
+    
+    

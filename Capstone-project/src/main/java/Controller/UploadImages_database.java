@@ -28,6 +28,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.ComboBox;
+import project.App;
+import project.FireStoreContext;
 
 /**
  *
