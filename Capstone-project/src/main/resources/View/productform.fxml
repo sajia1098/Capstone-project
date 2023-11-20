@@ -8,6 +8,7 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -15,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.capstone.project.ProductformController">
+<VBox xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ProductformController">
     <children>
         <Label text="Submit a Product" translateX="20.0" translateY="10.0">
             <font>
@@ -55,20 +56,33 @@
             <TextField fx:id="tfPrice" promptText="Ex: $5" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             
             <Label text="Image of Product" GridPane.rowIndex="4" />
-            <Button fx:id="bnUpload" text="Choose Image" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Button fx:id="uploadProductImage" onAction="#handleUploadImage" text="Choose Image" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <GridPane.margin>
+               <Insets left="75.0" />
+            </GridPane.margin></Button>
             <!-- Label to show the file chosen can be added -->
             
             <Label text="Additional Description" GridPane.rowIndex="5" />
-            <TextArea fx:id="taDescription" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextArea fx:id="productDescription" prefHeight="86.0" prefWidth="500.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             
             <Label text="Comments" GridPane.rowIndex="6" />
-            <TextArea fx:id="taComment" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextArea fx:id="productComments" prefHeight="86.0" prefWidth="500.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             
-            <Button fx:id="bnSubmit" text="Submit" GridPane.columnIndex="1" GridPane.rowIndex="7">
+            <Button fx:id="bnSubmit" onAction="#handleSubmit" text="Submit" GridPane.columnIndex="1" GridPane.rowIndex="7">
                 <GridPane.margin>
-                    <Insets top="20.0" />
+                    <Insets left="225.0" top="20.0" />
                 </GridPane.margin>
             </Button>
+         <ImageView fx:id="productImage" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <GridPane.margin>
+               <Insets left="250.0" />
+            </GridPane.margin>
+         </ImageView>
+         <ImageView fx:id="homeButton" fitHeight="49.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+            <GridPane.margin>
+               <Insets left="525.0" />
+            </GridPane.margin>
+         </ImageView>
          <columnConstraints>
             <ColumnConstraints />
             <ColumnConstraints />
