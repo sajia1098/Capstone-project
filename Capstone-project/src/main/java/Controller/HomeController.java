@@ -39,7 +39,7 @@ import project.FireStoreContext;
  *
  * @author amnasajid
  */
-public class UploadImages_toDatabase implements Initializable{
+public class HomeController implements Initializable{
 
     @FXML
     private FlowPane flowPane;
@@ -54,7 +54,7 @@ public class UploadImages_toDatabase implements Initializable{
    
 
     // Constructor
-    public UploadImages_toDatabase() {
+    public HomeController() {
         // Assuming FireStoreContext initializes FirebaseApp
         FireStoreContext fireStoreContext = new FireStoreContext();
     }
