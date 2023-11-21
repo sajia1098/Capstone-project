@@ -13,8 +13,8 @@ public class Brand extends Item {
     private String brand;
    
 
-    public Brand(String brand, String description, double price, String condition) {
-        super(description, price, condition);
+    public Brand(String brand, String category, String comments, String condition, String description, double price,String imageUrl, String productName) {
+        super(category, comments, condition, description, price, imageUrl, productName);
         this.brand = brand;
         
     }

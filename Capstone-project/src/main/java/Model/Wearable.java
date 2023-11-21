@@ -16,8 +16,8 @@ public class Wearable extends Brand {
    private String material;
    private String color;
 
-    public Wearable(String gender, String size, String material, String color, String brand, String description, double price, String condition) {
-        super(brand, description, price, condition);
+    public Wearable(String gender, String size, String material, String color, String brand, String category, String comments, String condition, String description, double price,String imageUrl, String productName) {
+        super(brand, category, comments, condition, description, price, imageUrl, productName);
         this.gender = gender;
         this.size = size;
         this.material = material;
