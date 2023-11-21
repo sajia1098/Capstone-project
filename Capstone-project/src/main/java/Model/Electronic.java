@@ -12,8 +12,8 @@ public class Electronic extends Brand {
 
     private String device_type;
 
-    public Electronic(String device_type, String brand, String description, double price, String condition) {
-        super(brand, description, price, condition);
+    public Electronic(String device_type, String brand, String category, String comments, String condition, String description, double price,String imageUrl, String productName) {
+        super(brand, category, comments, condition, description, price, imageUrl, productName);
         this.device_type = device_type;
     }
 
