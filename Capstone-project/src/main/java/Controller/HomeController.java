@@ -108,4 +108,8 @@ public class HomeController implements Initializable{
         App.setRoot("productform");
         
     }
+
+    @FXML
+    private void refreshItems(ActionEvent event) {
+    }
 }
