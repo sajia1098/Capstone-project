@@ -29,6 +29,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
@@ -167,7 +168,13 @@ public class ProductformController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        cbCategory.setItems(FXCollections.observableArrayList("Wearable", "Textbook", "Electrinic"));
+        cbCategory.setItems(FXCollections.observableArrayList("Wearable", "Textbook", "Electronic"));
+        ToggleGroup toggleGroup = new ToggleGroup();
+
+         rbNew.setToggleGroup(toggleGroup);
+         rbUsed.setToggleGroup(toggleGroup);
+         rbRefurbished.setToggleGroup(toggleGroup);
+
         
     }
 }
