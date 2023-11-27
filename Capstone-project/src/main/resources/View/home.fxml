@@ -27,6 +27,7 @@
                                 <Image url="@Screenshot%202023-11-13%20at%209.05.46%20PM.png" />
                             </image>
                         </ImageView>
+                  <Button layoutX="381.0" layoutY="56.0" mnemonicParsing="false" onAction="#refreshItems" text="Refresh Items" />
                     </children>
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="427.0" prefWidth="952.0">
