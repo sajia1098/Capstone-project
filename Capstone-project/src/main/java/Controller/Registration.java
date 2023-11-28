@@ -171,14 +171,4 @@ private void showAlert(String title, String content) {
         return password.getText().equals(confirm_password.getText());
     }
 
-    
-
-
-    @FXML
-    private void Close_Eye_ClickOnAction(MouseEvent event) {
-    }
-
-    @FXML
-    private void Open_Eye_ClickOnAction(MouseEvent event) {
-    }
 }
