@@ -22,8 +22,10 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
@@ -34,6 +36,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.scene.layout.VBox;
+import project.App;
 
 /**
  * FXML Controller class
@@ -65,14 +68,27 @@ public class ProductformController implements Initializable {
     @FXML
     private ImageView productImage;
     @FXML
-    private ImageView homeButton; // used to home button
-    
+    private ToggleGroup radioGroup;
+    @FXML
+    private Button bnClose;
 
-    // This method is called when the "Upload Image" button is clicked
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        cbCategory.setItems(FXCollections.observableArrayList("Wearable", "Textbook", "Electronic"));
+        radioGroup = new ToggleGroup();
+        rbNew.setToggleGroup(radioGroup);
+        rbUsed.setToggleGroup(radioGroup);
+        rbRefurbished.setToggleGroup(radioGroup);
+    }
+
+    //This method is called when the "Upload Image" button is clicked
     @FXML
     private void handleUploadImage() {
         try {
-            // Get image file from the user
+            //Get image file from the user
             FileChooser fileChooser = new FileChooser();
             fileChooser.getExtensionFilters().addAll(
                     new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.bmp")
@@ -82,7 +98,7 @@ public class ProductformController implements Initializable {
             List<File> selectedFiles = fileChooser.showOpenMultipleDialog(null);
 
             if (selectedFiles != null && !selectedFiles.isEmpty()) {
-                // Assuming you want to use only the first selected file
+                //Assuming you want to use only the first selected file
                 File file = selectedFiles.get(0);
                 uploadFileToFirebaseStorage(file);
             }
@@ -92,37 +108,37 @@ public class ProductformController implements Initializable {
     }
 
     private void uploadFileToFirebaseStorage(File file) throws IOException {
-        // Check if Firebase has been initialized and get the app
+        //Check if Firebase has been initialized and get the app
         if (FirebaseApp.getApps().isEmpty()) {
             System.out.println("Firebase has not been initialized");
             return;
         }
 
-        // Get default app instance
+        //Get default app instance
         FirebaseApp firebaseApp = FirebaseApp.getInstance();
 
-        // Get storage instance from Firebase app
+        //Get storage instance from Firebase app
         Storage storage = StorageClient.getInstance(firebaseApp).bucket("csc325-capstone.appspot.com").getStorage();
 
-        // Prepare file to be uploaded
+        //Prepare file to be uploaded
         String objectName = UUID.randomUUID().toString();
         String contentType = Files.probeContentType(file.toPath());
         BlobId blobId = BlobId.of("csc325-capstone.appspot.com", objectName);
         BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType(contentType).build();
 
-        // Upload the file to Firebase Storage
+        //Upload the file to Firebase Storage
         storage.create(blobInfo, Files.readAllBytes(file.toPath()));
 
-        // Generate a signed URL for the blob with a long expiration time
+        //Generate a signed URL for the blob with a long expiration time
         URL signedUrl = storage.signUrl(blobInfo, 7, TimeUnit.DAYS, Storage.SignUrlOption.withV4Signature());
 
-        // Use Platform.runLater to update the UI on the JavaFX Application Thread
+        //Use Platform.runLater to update the UI on the JavaFX Application Thread
         Platform.runLater(() -> {
             try {
-                // Use storage client to get download URL
+                //Use storage client to get download URL
                 String imageUrl = signedUrl.toString();
 
-                // Update the UI
+                //Update the UI
                 Image image = new Image(imageUrl);
                 productImage.setImage(image);
             } catch (Exception e) {
@@ -131,50 +147,85 @@ public class ProductformController implements Initializable {
             }
         });
     }
-    
 
-    // This method is called when the "Submit" button is clicked
+    //This method is called when the "Submit" button is clicked
     @FXML
-    private void handleSubmit() {
-        // Get the product information from the form
+    private void handleSubmit() throws IOException {
+        //Get the product information from the form
         String productName = tfProductname.getText();
-        String category = cbCategory.getValue().toString(); 
-        String condition = rbNew.isSelected() ? "New" : (rbUsed.isSelected() ? "Used" : "Refurbished");
-        double price = Double.parseDouble(tfPrice.getText());
-        String description = productDescription.getText();
-        String comments = productComments.getText();
-        String imageUrl = productImage.getImage() != null ? productImage.getImage().getUrl() : null;
+        String category = cbCategory.getValue();
+        RadioButton selectedCondition = (RadioButton) radioGroup.getSelectedToggle();
+        String priceText = tfPrice.getText();
+        Image productImageValue = productImage.getImage();
 
-        // Create a map with the product information
+        //Validate the product name
+        if (productName == null || productName.trim().isEmpty()) {
+            showAlert("Validation Error", "Product name is required.");
+            return;
+        }
+
+        //Validate the category
+        if (category == null || category.trim().isEmpty()) {
+            showAlert("Validation Error", "Please select a category.");
+            return;
+        }
+
+        //Validate the condition
+        String condition = selectedCondition == null ? null : selectedCondition.getText();
+        if (condition == null) {
+            showAlert("Validation Error", "Please select the condition of the product.");
+            return;
+        }
+
+        //Validate the price
+        double price;
+        try {
+            price = Double.parseDouble(priceText);
+        } catch (NumberFormatException e) {
+            showAlert("Validation Error", "Please enter a valid price.");
+            return;
+        }
+
+        //Validate the image
+        if (productImageValue == null) {
+            showAlert("Validation Error", "Please upload an image of the product.");
+            return;
+        }
+        String imageUrl = productImageValue.getUrl();
+
+        //Create a map with the product information
         Map<String, Object> productData = new HashMap<>();
         productData.put("productName", productName);
         productData.put("category", category);
         productData.put("condition", condition);
         productData.put("price", price);
-        productData.put("description", description);
-        productData.put("comments", comments);
+        productData.put("description", productDescription.getText());
+        productData.put("comments", productComments.getText());
         productData.put("imageUrl", imageUrl);
 
-        // Add the product data to Firestore
+        //Add the product data to Firestore
         Firestore db = FirestoreClient.getFirestore();
         CollectionReference products = db.collection("Items");
         DocumentReference newProductRef = products.document();
         newProductRef.set(productData, SetOptions.merge());
+
+        //Show success message
+        showAlert("Product Form", "Product Added!\nClick OK to go back to the home screen!");
+        //Go back to home screen
+        App.setRoot("home");
     }
 
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        cbCategory.setItems(FXCollections.observableArrayList("Wearable", "Textbook", "Electronic"));
-        ToggleGroup toggleGroup = new ToggleGroup();
+    @FXML
+    private void handleClose(ActionEvent event) throws IOException {
+        App.setRoot("home");
+    }
 
-         rbNew.setToggleGroup(toggleGroup);
-         rbUsed.setToggleGroup(toggleGroup);
-         rbRefurbished.setToggleGroup(toggleGroup);
-
-        
+    //Helper method to show an alert
+    private void showAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 }
