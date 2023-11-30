@@ -17,7 +17,6 @@ public class Item {
     private String imageUrl;
     private String productName;
 
-
     public Item(String category, String comments, String condition, String description, double price,String imageUrl, String productName) {
         this.category = category;
         this.comments = comments;
@@ -73,6 +72,4 @@ public class Item {
     public void setProductName(String productName) {
         this.productName = productName;
     }
-    
-
 }

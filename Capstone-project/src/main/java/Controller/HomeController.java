@@ -4,6 +4,7 @@
  */
 package Controller;
 
+import Model.Item;
 import com.google.api.core.ApiFuture;
 import com.google.api.gax.paging.Page;
 import com.google.cloud.firestore.CollectionReference;
@@ -32,8 +33,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.stage.Stage;
 import project.App;
 import project.FireStoreContext;
 
@@ -100,12 +105,20 @@ public class HomeController implements Initializable {
                         String productPrice = String.format("%.2f", (Double) item.get("price"));
                         String condition = (String) item.get("condition");
                         String category = (String) item.get("category");
-
+                        String comments = (String) item.get("comments");
+                        String description = (String) item.get("description");
+                        
                         Image image = new Image(imageUrl);
                         Platform.runLater(() -> {
                             ImageView imageView = new ImageView(image);
                             imageView.setFitWidth(200);
                             imageView.setPreserveRatio(true);
+
+                            imageView.setOnMouseClicked(event -> {
+                                double priceValue = Double.parseDouble(productPrice);
+                                Item itemClass = new Item(category, comments, condition, description, priceValue, imageUrl, productName);
+                                openItemDetailScene(itemClass);
+                            });
 
                             Label nameLabel = new Label("Name: " + productName);
                             Label priceLabel = new Label("Price: $" + productPrice);
@@ -124,6 +137,22 @@ public class HomeController implements Initializable {
         Thread thread = new Thread(loadImageTask);
         thread.setDaemon(true);
         thread.start();
+    }
+
+    private void openItemDetailScene(Item itemDetails) {
+        try {
+            FXMLLoader loader = new FXMLLoader(HomeController.class.getResource("/View/ItemDescription.fxml"));
+            Parent root = loader.load();
+
+            ItemDescriptionController controller = loader.getController();
+            controller.setItemDetails(itemDetails);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
