@@ -9,9 +9,10 @@ package Model;
  * @author Elan
  */
 public class ItemDetails {
+
     private static ItemDetails instance;
     private Item currentItem;
-    
+
     private ItemDetails() {
     }
 
@@ -33,6 +34,4 @@ public class ItemDetails {
     public void setCurrentItem(Item currentItem) {
         this.currentItem = currentItem;
     }
-    
-
 }
