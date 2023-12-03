@@ -11,12 +11,10 @@ package Model;
 public class Brand extends Item {
 
     private String brand;
-   
 
-    public Brand(String brand, String category, String comments, String condition, String description, double price,String imageUrl, String productName) {
+    public Brand(String brand, String category, String comments, String condition, String description, double price, String imageUrl, String productName) {
         super(category, comments, condition, description, price, imageUrl, productName);
         this.brand = brand;
-        
     }
 
     public String getBrand() {
@@ -26,6 +24,4 @@ public class Brand extends Item {
     public void setBrand(String brand) {
         this.brand = brand;
     }
-
-    
 }

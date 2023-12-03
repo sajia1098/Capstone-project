@@ -4,38 +4,44 @@
  */
 package Model;
 
-import java.io.IOException;
-import project.App;
-
 /**
  *
  * @author Elan
  */
-public class CurrentUser extends User{
-    
+public class CurrentUser extends User {
 
-    public CurrentUser(String firstName, String lastName, String password, String id) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.password = "PROTECTED";
-        this.id = id;
-    }
-    
-    public CurrentUser() {
-        this.firstName = "";
-        this.lastName = "";
-        this.password = "";
-        this.id = "";
-    }
-    
-    public void logOut() throws IOException {
-        this.firstName = "";
-        this.lastName = "";
-        this.password = "";
-        this.id = "";
-        
-        //Switches user to login controller
-        App.setRoot("login");
+    private static CurrentUser instance;
+
+    //Private constructor to prevent direct instantiation
+    private CurrentUser(String firstName, String lastName, String password, String id) {
+        super(firstName, lastName, password, id);
     }
 
+    //Static method to get the one and only one instance
+    public static CurrentUser getInstance() {
+        if (instance == null) {
+            instance = new CurrentUser("", "", "", "");
+        }
+        return instance;
+    }
+
+    //Static method to set the current user upon login
+    public static void login(String firstName, String lastName, String password, String id) {
+        instance = new CurrentUser(firstName, lastName, password, id);
+    }
+
+    //Static method to clear the current user upon logout
+    public static void logout() {
+        instance = null;
+    }
+
+    /**
+     *
+     * @return @throws CloneNotSupportedException
+     */
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        //Prevent cloning of the one and only one instance
+        throw new CloneNotSupportedException();
+    }
 }

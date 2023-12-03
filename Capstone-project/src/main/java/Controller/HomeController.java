@@ -4,9 +4,12 @@
  */
 package Controller;
 
+import Model.CurrentUser;
+import Model.Item;
+import Model.ItemDetails;
 import com.google.api.core.ApiFuture;
-import com.google.api.gax.paging.Page;
 import com.google.cloud.firestore.CollectionReference;
+import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.Query;
@@ -18,15 +21,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
-import com.google.cloud.storage.*;
-import com.google.firebase.cloud.StorageClient;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.cloud.FirestoreClient;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -53,10 +54,12 @@ public class HomeController implements Initializable {
     private ImageView pfp;
     @FXML
     private ImageView ppfp;
+    @FXML
+    private Label labelWelcome;
 
     //Constructor
     public HomeController() {
-        //Assuming FireStoreContext initializes FirebaseApp
+        //FireStoreContext initializes FirebaseApp
         FireStoreContext fireStoreContext = new FireStoreContext();
     }
 
@@ -73,8 +76,43 @@ public class HomeController implements Initializable {
         //Vertical gap between images
         flowPane.setVgap(15);
 
+        //Fetch and display user details for Welcome message
+        fetchUserDetails();
+
         //Calls the method to load the images as soon as home screen is loaded
         showImage(null);
+    }
+
+    private void openItemDetail(Item itemDetails) {
+        try {
+            //Set item details in ItemDetails class
+            ItemDetails.getInstance().setCurrentItem(itemDetails);
+
+            //Use App class to switch scenes
+            App.switchScene("itemdescription");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void uploadButton() throws IOException {
+        App.switchScene("productform");
+    }
+
+    @FXML
+    private void clothesButton(ActionEvent event) {
+        showImagesByCategory("Wearable");
+    }
+
+    @FXML
+    private void textbooksButton(ActionEvent event) {
+        showImagesByCategory("Textbook");
+    }
+
+    @FXML
+    private void electronicsButton(ActionEvent event) {
+        showImagesByCategory("Electronic");
     }
 
     @FXML
@@ -89,17 +127,20 @@ public class HomeController implements Initializable {
                     Firestore db = FirestoreClient.getFirestore();
                     CollectionReference items = db.collection("Items");
 
-                    // Retrieve all items
+                    //Retrieve all items
                     ApiFuture<QuerySnapshot> querySnapshot = items.get();
 
                     for (DocumentSnapshot document : querySnapshot.get().getDocuments()) {
                         Map<String, Object> item = document.getData();
 
+                        //imageUrl and other metadata are stored in the document
                         String imageUrl = (String) item.get("imageUrl");
                         String productName = (String) item.get("productName");
                         String productPrice = String.format("%.2f", (Double) item.get("price"));
                         String condition = (String) item.get("condition");
                         String category = (String) item.get("category");
+                        String comments = (String) item.get("comments");
+                        String description = (String) item.get("description");
 
                         Image image = new Image(imageUrl);
                         Platform.runLater(() -> {
@@ -107,10 +148,17 @@ public class HomeController implements Initializable {
                             imageView.setFitWidth(200);
                             imageView.setPreserveRatio(true);
 
+                            imageView.setOnMouseClicked(event -> {
+                                double priceValue = Double.parseDouble(productPrice);
+                                Item itemClass = new Item(category, comments, condition, description, priceValue, imageUrl, productName);
+                                openItemDetail(itemClass);
+                            });
+
                             Label nameLabel = new Label("Name: " + productName);
                             Label priceLabel = new Label("Price: $" + productPrice);
                             Label conditionLabel = new Label("Condition: " + condition);
                             Label categoryLabel = new Label("Category: " + category);
+
                             VBox imageAndDescription = new VBox(imageView, nameLabel, priceLabel, conditionLabel, categoryLabel);
                             flowPane.getChildren().add(imageAndDescription);
                         });
@@ -126,9 +174,29 @@ public class HomeController implements Initializable {
         thread.start();
     }
 
-    @FXML
-    private void uploadButton() throws IOException {
-        App.setRoot("productform");
+    private void fetchUserDetails() {
+        String currentUserId = CurrentUser.getInstance().getId();
+        Firestore db = FirestoreClient.getFirestore();
+        DocumentReference docRef = db.collection("Users").document(currentUserId);
+
+        ApiFuture<DocumentSnapshot> future = docRef.get();
+        future.addListener(() -> {
+            try {
+                DocumentSnapshot document = future.get();
+                if (document.exists()) {
+                    String firstName = document.getString("FirstName");
+                    String lastName = document.getString("LastName");
+
+                    Platform.runLater(() -> {
+                        labelWelcome.setText("Welcome, " + firstName + " " + lastName + " (RAMID: " + currentUserId + ")");
+                    });
+                } else {
+                    System.out.println("User not found with ID: " + currentUserId);
+                }
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        }, Executors.newSingleThreadExecutor());
     }
 
     private void showImagesByCategory(String category) {
@@ -153,6 +221,9 @@ public class HomeController implements Initializable {
                         String productName = (String) item.get("productName");
                         String productPrice = String.format("%.2f", (Double) item.get("price"));
                         String condition = (String) item.get("condition");
+                        String category = (String) item.get("category");
+                        String comments = (String) item.get("comments");
+                        String description = (String) item.get("description");
 
                         Image image = new Image(imageUrl);
                         Platform.runLater(() -> {
@@ -160,11 +231,17 @@ public class HomeController implements Initializable {
                             imageView.setFitWidth(200);
                             imageView.setPreserveRatio(true);
 
-                            Label nameLabel = new Label(productName);
-                            Label priceLabel = new Label("$" + productPrice);
-                            Label conditionLabel = new Label(condition);
+                            imageView.setOnMouseClicked(event -> {
+                                double priceValue = Double.parseDouble(productPrice);
+                                Item itemClass = new Item(category, comments, condition, description, priceValue, imageUrl, productName);
+                                openItemDetail(itemClass);
+                            });
 
-                            VBox imageAndDescription = new VBox(imageView, nameLabel, priceLabel, conditionLabel);
+                            Label nameLabel = new Label("Name: " + productName);
+                            Label priceLabel = new Label("Price: $" + productPrice);
+                            Label conditionLabel = new Label("Condition: " + condition);
+                            Label categoryLabel = new Label("Category: " + category);
+                            VBox imageAndDescription = new VBox(imageView, nameLabel, priceLabel, conditionLabel, categoryLabel);
                             flowPane.getChildren().add(imageAndDescription);
                         });
                     }
@@ -174,24 +251,21 @@ public class HomeController implements Initializable {
                 return null;
             }
         };
-
         Thread thread = new Thread(loadCategoryImagesTask);
         thread.setDaemon(true);
         thread.start();
     }
 
     @FXML
-    private void clothesButton(ActionEvent event) {
-        showImagesByCategory("Wearable");
-    }
-
-    @FXML
-    private void textbooksButton(ActionEvent event) {
-        showImagesByCategory("Textbook");
-    }
-
-    @FXML
-    private void electronicsButton(ActionEvent event) {
-        showImagesByCategory("Electronic");
+    private void logoutButton(ActionEvent event) {
+        try {
+            //Clear current user's session data
+            CurrentUser.logout();
+            
+            //Go back to login screen
+            App.switchScene("login");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

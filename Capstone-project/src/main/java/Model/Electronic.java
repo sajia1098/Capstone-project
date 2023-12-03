@@ -12,7 +12,7 @@ public class Electronic extends Brand {
 
     private String device_type;
 
-    public Electronic(String device_type, String brand, String category, String comments, String condition, String description, double price,String imageUrl, String productName) {
+    public Electronic(String device_type, String brand, String category, String comments, String condition, String description, double price, String imageUrl, String productName) {
         super(brand, category, comments, condition, description, price, imageUrl, productName);
         this.device_type = device_type;
     }
@@ -24,5 +24,4 @@ public class Electronic extends Brand {
     public void setDevice_type(String device_type) {
         this.device_type = device_type;
     }
-
 }
