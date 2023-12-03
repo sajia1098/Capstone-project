@@ -27,7 +27,7 @@ import project.App;
  *
  * @author amnasajid
  */
-public class ItemDescriptionController implements Initializable {
+public class ItemDescriptionController implements Initializable{
 
     @FXML
     private ImageView productImageView;
