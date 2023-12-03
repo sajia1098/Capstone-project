@@ -15,7 +15,7 @@ import javafx.scene.control.TextField;
 import project.App;
 import project.FireStoreContext;
 
-public class LoginController {
+public class Login {
 
     @FXML
     private Button bnNeedAccount;
@@ -28,7 +28,7 @@ public class LoginController {
 
     private Firestore db;
 
-    public LoginController() {
+    public Login() {
         FireStoreContext fireStoreContext = new FireStoreContext();
         this.db = fireStoreContext.firebase();
     }

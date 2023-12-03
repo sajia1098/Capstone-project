@@ -27,7 +27,7 @@ import project.FireStoreContext;
  *
  * @author amnasajid
  */
-public class RegistrationController {
+public class Registration {
 
     @FXML
     private TextField first_name;
@@ -46,7 +46,7 @@ public class RegistrationController {
 
     private Firestore db;
 
-    public RegistrationController() {
+    public Registration() {
         FireStoreContext fireStoreContext = new FireStoreContext();
         this.db = fireStoreContext.firebase();
     }
