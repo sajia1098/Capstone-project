@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.CurrentUser;
 import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.Firestore;
@@ -35,7 +36,6 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
-import javafx.scene.layout.VBox;
 import project.App;
 
 /**
@@ -107,47 +107,6 @@ public class ProductformController implements Initializable {
         }
     }
 
-    private void uploadFileToFirebaseStorage(File file) throws IOException {
-        //Check if Firebase has been initialized and get the app
-        if (FirebaseApp.getApps().isEmpty()) {
-            System.out.println("Firebase has not been initialized");
-            return;
-        }
-
-        //Get default app instance
-        FirebaseApp firebaseApp = FirebaseApp.getInstance();
-
-        //Get storage instance from Firebase app
-        Storage storage = StorageClient.getInstance(firebaseApp).bucket("csc325-capstone.appspot.com").getStorage();
-
-        //Prepare file to be uploaded
-        String objectName = UUID.randomUUID().toString();
-        String contentType = Files.probeContentType(file.toPath());
-        BlobId blobId = BlobId.of("csc325-capstone.appspot.com", objectName);
-        BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType(contentType).build();
-
-        //Upload the file to Firebase Storage
-        storage.create(blobInfo, Files.readAllBytes(file.toPath()));
-
-        //Generate a signed URL for the blob with a long expiration time
-        URL signedUrl = storage.signUrl(blobInfo, 7, TimeUnit.DAYS, Storage.SignUrlOption.withV4Signature());
-
-        //Use Platform.runLater to update the UI on the JavaFX Application Thread
-        Platform.runLater(() -> {
-            try {
-                //Use storage client to get download URL
-                String imageUrl = signedUrl.toString();
-
-                //Update the UI
-                Image image = new Image(imageUrl);
-                productImage.setImage(image);
-            } catch (Exception e) {
-                System.err.println("Exception occurred while setting image to ImageView: " + e.getMessage());
-                e.printStackTrace();
-            }
-        });
-    }
-
     //This method is called when the "Submit" button is clicked
     @FXML
     private void handleSubmit() throws IOException {
@@ -192,6 +151,7 @@ public class ProductformController implements Initializable {
             return;
         }
         String imageUrl = productImageValue.getUrl();
+        String currentUserId = CurrentUser.getInstance().getId();
 
         //Create a map with the product information
         Map<String, Object> productData = new HashMap<>();
@@ -202,6 +162,7 @@ public class ProductformController implements Initializable {
         productData.put("description", productDescription.getText());
         productData.put("comments", productComments.getText());
         productData.put("imageUrl", imageUrl);
+        productData.put("RamID", currentUserId);
 
         //Add the product data to Firestore
         Firestore db = FirestoreClient.getFirestore();
@@ -217,10 +178,50 @@ public class ProductformController implements Initializable {
 
     @FXML
     private void handleClose(ActionEvent event) throws IOException {
-        App.setRoot("home");
+        App.switchScene("home");
     }
 
-    //Helper method to show an alert
+    private void uploadFileToFirebaseStorage(File file) throws IOException {
+        //Check if Firebase has been initialized and get the app
+        if (FirebaseApp.getApps().isEmpty()) {
+            System.out.println("Firebase has not been initialized");
+            return;
+        }
+
+        //Get default app instance
+        FirebaseApp firebaseApp = FirebaseApp.getInstance();
+
+        //Get storage instance from Firebase app
+        Storage storage = StorageClient.getInstance(firebaseApp).bucket("csc325-capstone.appspot.com").getStorage();
+
+        //Prepare file to be uploaded
+        String objectName = UUID.randomUUID().toString();
+        String contentType = Files.probeContentType(file.toPath());
+        BlobId blobId = BlobId.of("csc325-capstone.appspot.com", objectName);
+        BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType(contentType).build();
+
+        //Upload the file to Firebase Storage
+        storage.create(blobInfo, Files.readAllBytes(file.toPath()));
+
+        //Generate a signed URL for the blob with a long expiration time
+        URL signedUrl = storage.signUrl(blobInfo, 7, TimeUnit.DAYS, Storage.SignUrlOption.withV4Signature());
+
+        //Use Platform.runLater to update the UI on the JavaFX Application Thread
+        Platform.runLater(() -> {
+            try {
+                //Use storage client to get download URL
+                String imageUrl = signedUrl.toString();
+
+                //Update the UI
+                Image image = new Image(imageUrl);
+                productImage.setImage(image);
+            } catch (Exception e) {
+                System.err.println("Exception occurred while setting image to ImageView: " + e.getMessage());
+                e.printStackTrace();
+            }
+        });
+    }
+
     private void showAlert(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle(title);

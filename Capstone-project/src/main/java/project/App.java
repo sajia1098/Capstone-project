@@ -16,28 +16,56 @@ import javafx.scene.control.Alert;
 public class App extends Application {
 
     private static Scene scene;
-    public static Firestore fstore; //access firestore
+    //Reference to main stage
+    private static Stage primaryStage;
+    //Access firestore
+    public static Firestore fstore;
 
     @Override
     public void start(Stage stage) {
         try {
-            // Initialize Firebase Firestore through the FireStoreContext
+            //Initialize Firebase Firestore through the FireStoreContext
             FireStoreContext contxtFirebase = new FireStoreContext();
-            // Access Firestore instance
+            //Access Firestore instance
             fstore = contxtFirebase.firebase();
-
-            // Load scene
+            
+            primaryStage = stage;
+            
+            //Load scene
             scene = new Scene(loadFXML("login"), 954, 654);
-            stage.setScene(scene);
-            stage.setTitle("RamThrift");
-            stage.show();
+            //Set primary stage as login screen
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("RamThrift");
+            primaryStage.show();
         } catch (IOException e) {
-            e.printStackTrace(); // Print the stack trace for debugging purposes
+            e.printStackTrace();
             showAlert("Error", "An error occurred while starting the application.");
         } catch (Exception e) {
-            e.printStackTrace(); // Print the stack trace for debugging purposes
+            e.printStackTrace();
             showAlert("Error", "An unexpected error occurred.");
         }
+    }
+
+    //Method to switch scenes
+    public static void switchScene(String fxml) throws IOException {
+        Parent root = loadFXML(fxml);
+        scene.setRoot(root);
+    }
+
+    //Old way to switch scenes, use switchscene instead
+    @Deprecated
+    public static void setRoot(String fxml) throws IOException {
+        switchScene(fxml);
+    }
+
+    private static Parent loadFXML(String fxml) throws IOException {
+        //"/View/" -> name of package where fxml file is located 
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/View/" + fxml + ".fxml"));
+        return fxmlLoader.load();
+    }
+
+    public static void main(String[] args) {
+        launch();
     }
 
     private void showAlert(String title, String content) {
@@ -45,19 +73,5 @@ public class App extends Application {
         alert.setTitle(title);
         alert.setContentText(content);
         alert.showAndWait();
-    }
-
-    public static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
-    }
-
-    private static Parent loadFXML(String fxml) throws IOException {
-        //  "/View/" -> name of package where fxml file is located 
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/View/" + fxml + ".fxml"));
-        return fxmlLoader.load();
-    }
-
-    public static void main(String[] args) {
-        launch();
     }
 }

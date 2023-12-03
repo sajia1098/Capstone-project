@@ -4,18 +4,17 @@
  */
 package Model;
 
-import Model.Item;
-
 /**
  *
  * @author amnasajid
  */
 public class TextBook extends Item {
+
     private String title;
     private String isbn;
     private int edition;
 
-    public TextBook(String title, String isbn, int edition, String category, String comments, String condition, String description, double price,String imageUrl, String productName) {
+    public TextBook(String title, String isbn, int edition, String category, String comments, String condition, String description, double price, String imageUrl, String productName) {
         super(category, comments, condition, description, price, imageUrl, productName);
         this.title = title;
         this.isbn = isbn;
@@ -45,8 +44,4 @@ public class TextBook extends Item {
     public void setEdition(int edition) {
         this.edition = edition;
     }
-
-    
-    
-    
 }

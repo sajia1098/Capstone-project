@@ -8,30 +8,27 @@ package Model;
  *
  * @author amnasajid
  */
-/**
- *
- * @author amnasajid
- */
 public class User {
+
     protected String firstName;
     protected String lastName;
     protected String password;
     protected String id;
-   
+
     public User(String firstName, String lastName, String password, String id) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
         this.id = id;
     }
-    
+
     public User() {
         this.firstName = "";
         this.lastName = "";
         this.password = "";
         this.id = "";
     }
-    
+
     public String getFirstName() {
         return firstName;
     }
@@ -63,6 +60,4 @@ public class User {
     public void setId(String id) {
         this.id = id;
     }
-    
-    
 }

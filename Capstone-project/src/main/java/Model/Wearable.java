@@ -4,26 +4,25 @@
  */
 package Model;
 
-import Model.Brand;
-
 /**
  *
  * @author amnasajid
  */
 public class Wearable extends Brand {
-   private String gender;
-   private String size; 
-   private String material;
-   private String color;
 
-    public Wearable(String gender, String size, String material, String color, String brand, String category, String comments, String condition, String description, double price,String imageUrl, String productName) {
+    private String gender;
+    private String size;
+    private String material;
+    private String color;
+
+    public Wearable(String gender, String size, String material, String color, String brand, String category, String comments, String condition, String description, double price, String imageUrl, String productName) {
         super(brand, category, comments, condition, description, price, imageUrl, productName);
         this.gender = gender;
         this.size = size;
         this.material = material;
         this.color = color;
     }
-   
+
     public String getGender() {
         return gender;
     }
@@ -40,7 +39,6 @@ public class Wearable extends Brand {
         this.size = size;
     }
 
-    
     public String getMaterial() {
         return material;
     }
@@ -56,8 +54,4 @@ public class Wearable extends Brand {
     public void setColor(String color) {
         this.color = color;
     }
-   
-   
-   
-   
 }
