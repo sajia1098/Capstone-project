@@ -1,59 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="654.0" prefWidth="954.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HomeController">
-    <children>
-        <SplitPane dividerPositions="0.1670854271356784" layoutX="3.0" layoutY="-3.0" orientation="VERTICAL" prefHeight="660.0" prefWidth="954.0">
-            <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="327.0" prefWidth="943.0">
-                    <children>
-                        <TextField layoutX="42.0" layoutY="20.0" prefHeight="26.0" prefWidth="319.0" promptText="Search item here" />
-                        <Button fx:id="uploadFormButton" layoutX="397.0" layoutY="20.0" mnemonicParsing="false" onAction="#uploadButton" text="Upload" />
-                        <Button layoutX="476.0" layoutY="20.0" mnemonicParsing="false" onAction="#showImage" text="Refresh Items" />
-                        <ImageView id="pfp" fx:id="pfp" fitHeight="54.0" fitWidth="57.0" layoutX="780.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
-                        <ComboBox fx:id="comboBox" layoutX="708.0" layoutY="20.0" prefHeight="26.0" prefWidth="129.0" promptText="..." />
-                        <ImageView fx:id="ppfp" fitHeight="42.0" fitWidth="57.0" layoutX="631.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@Screenshot%202023-11-13%20at%209.05.46%20PM.png" />
-                            </image>
-                        </ImageView>
-                  <Label fx:id="labelWelcome" layoutX="333.0" layoutY="68.0" prefHeight="17.0" prefWidth="269.0" />
-                  <Button layoutX="564.0" layoutY="64.0" mnemonicParsing="false" onAction="#logoutButton" text="Logout" />
-                  <Button layoutX="708.0" layoutY="64.0" mnemonicParsing="false" onAction="#switchToAccountDetails" text="Account Details" />
-                    </children>
-                </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="427.0" prefWidth="952.0">
-                    <children>
-                        <SplitPane dividerPositions="0.2" layoutX="-1.0" prefHeight="545.0" prefWidth="952.0">
-                            <items>
-                                <Pane prefHeight="543.0" prefWidth="206.0">
-                                    <children>
-                                        <Button mnemonicParsing="false" onAction="#clothesButton" prefHeight="94.0" prefWidth="187.0" text="Clothes" />
-                                        <Button layoutY="88.0" mnemonicParsing="false" onAction="#textbooksButton" prefHeight="107.0" prefWidth="187.0" text="Textbook" />
-                                        <Button layoutY="193.0" mnemonicParsing="false" onAction="#electronicsButton" prefHeight="107.0" prefWidth="187.0" text="Electronics" />
-                                    </children>
-                                </Pane>
-                                <ScrollPane cache="true" cacheHint="speed" pannable="true" prefHeight="318.0" prefWidth="396.0">
-                                    <content>
-                                        <FlowPane fx:id="flowPane" prefHeight="543.0" prefWidth="757.0" />
-                                    </content>
-                                </ScrollPane>
-                            </items>
-                        </SplitPane>
-                    </children>
-                </AnchorPane>
-            </items>
-        </SplitPane>
-    </children>
-</AnchorPane>
+
+<BorderPane prefHeight="689.0" prefWidth="953.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HomeController">
+   <top>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="118.0" prefWidth="954.0" style="-fx-background-color: #416663; -fx-border-color: #000000;" BorderPane.alignment="CENTER">
+              <children>
+                  <TextField layoutX="57.0" layoutY="46.0" prefHeight="26.0" prefWidth="319.0" promptText="Search item here" />
+                  <Button fx:id="uploadFormButton" layoutX="420.0" layoutY="46.0" mnemonicParsing="false" onAction="#uploadButton" text="Upload" />
+                  <Button layoutX="515.0" layoutY="46.0" mnemonicParsing="false" onAction="#showImage" text="Refresh Items" />
+                  <ImageView id="pfp" fx:id="pfp" fitHeight="54.0" fitWidth="57.0" layoutX="757.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="ppfp" fitHeight="42.0" fitWidth="57.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                          <Image url="@Screenshot%202023-11-13%20at%209.05.46%20PM.png" />
+                      </image>
+                  </ImageView>
+            <Label fx:id="labelWelcome" layoutX="380.0" layoutY="8.0" prefHeight="17.0" prefWidth="269.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #000000;" />
+            <Button layoutX="650.0" layoutY="46.0" mnemonicParsing="false" onAction="#logoutButton" text="Logout" />
+            <Button layoutX="736.0" layoutY="76.0" mnemonicParsing="false" onAction="#switchToAccountDetails" text="Account Details" />
+            <Circle fill="WHITE" layoutX="786.0" layoutY="44.0" radius="28.0" stroke="BLACK" strokeType="INSIDE" />
+              </children>
+          </AnchorPane>
+   </top>
+   <left>
+      <VBox style="-fx-background-color: #BDBCBC; -fx-border-color: #000000;" BorderPane.alignment="CENTER">
+         <children>
+                      <Button mnemonicParsing="false" onAction="#clothesButton" prefHeight="94.0" prefWidth="187.0" text="Clothes" />
+                      <Button mnemonicParsing="false" onAction="#textbooksButton" prefHeight="107.0" prefWidth="187.0" text="Textbook" />
+                      <Button mnemonicParsing="false" onAction="#electronicsButton" prefHeight="107.0" prefWidth="187.0" text="Electronics" />
+         </children>
+      </VBox>
+   </left>
+   <center>
+              <ScrollPane cache="true" cacheHint="speed" pannable="true" prefHeight="318.0" prefWidth="396.0" style="-fx-border-color: #000000;" BorderPane.alignment="CENTER">
+                  <content>
+                      <FlowPane fx:id="flowPane" prefHeight="543.0" prefWidth="757.0" />
+                  </content>
+              </ScrollPane>
+   </center>
+</BorderPane>

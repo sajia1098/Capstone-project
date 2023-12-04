@@ -69,16 +69,16 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ObservableList<String> items = FXCollections.observableArrayList(
-                "View Profile",
-                "Settings"
-        );
-        comboBox.setItems(items);
-        comboBox.setValue("......");
-        //Horizontal gap between images
-        flowPane.setHgap(20);
-        //Vertical gap between images
-        flowPane.setVgap(15);
+//        ObservableList<String> items = FXCollections.observableArrayList(
+//                "View Profile",
+//                "Settings"
+//        );
+//        comboBox.setItems(items);
+//        comboBox.setValue("......");
+//        //Horizontal gap between images
+//        flowPane.setHgap(20);
+//        //Vertical gap between images
+//        flowPane.setVgap(15);
 
         //Fetch and display user details for Welcome message
         fetchUserDetails();
