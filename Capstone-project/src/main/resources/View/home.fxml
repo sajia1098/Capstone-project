@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="654.0" prefWidth="954.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HomeController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="654.0" prefWidth="954.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HomeController">
     <children>
         <SplitPane dividerPositions="0.1670854271356784" layoutX="3.0" layoutY="-3.0" orientation="VERTICAL" prefHeight="660.0" prefWidth="954.0">
             <items>
@@ -30,6 +30,7 @@
                         </ImageView>
                   <Label fx:id="labelWelcome" layoutX="333.0" layoutY="68.0" prefHeight="17.0" prefWidth="269.0" />
                   <Button layoutX="564.0" layoutY="64.0" mnemonicParsing="false" onAction="#logoutButton" text="Logout" />
+                  <Button layoutX="708.0" layoutY="64.0" mnemonicParsing="false" onAction="#switchToAccountDetails" text="Account Details" />
                     </children>
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="427.0" prefWidth="952.0">

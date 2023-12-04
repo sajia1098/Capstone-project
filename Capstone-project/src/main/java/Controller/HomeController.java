@@ -272,4 +272,9 @@ public class HomeController implements Initializable {
             e.printStackTrace();
         }
     }
+    
+    @FXML
+    void switchToAccountDetails(ActionEvent event) throws IOException{
+        App.setRoot("accountDetails");
+    }
 }
