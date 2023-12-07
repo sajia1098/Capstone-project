@@ -12,12 +12,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-
-<BorderPane prefHeight="689.0" prefWidth="953.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HomeController">
+<BorderPane prefHeight="689.0" prefWidth="953.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HomeController">
    <top>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="118.0" prefWidth="954.0" style="-fx-background-color: #416663; -fx-border-color: #000000;" BorderPane.alignment="CENTER">
               <children>
-                  <TextField layoutX="57.0" layoutY="46.0" prefHeight="26.0" prefWidth="319.0" promptText="Search item here" />
+                  <TextField fx:id="tfSearch" layoutX="57.0" layoutY="46.0" prefHeight="26.0" prefWidth="319.0" promptText="Search item here" />
                   <Button fx:id="uploadFormButton" layoutX="420.0" layoutY="46.0" mnemonicParsing="false" onAction="#uploadButton" text="Upload" />
                   <Button layoutX="515.0" layoutY="46.0" mnemonicParsing="false" onAction="#showImage" text="Refresh Items" />
                   <ImageView id="pfp" fx:id="pfp" fitHeight="54.0" fitWidth="57.0" layoutX="757.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" />
