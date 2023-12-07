@@ -24,21 +24,14 @@ import javafx.scene.layout.VBox;
 import com.google.firebase.cloud.FirestoreClient;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.stage.Stage;
+import javafx.scene.control.TextField;
 import project.App;
 import project.FireStoreContext;
 
@@ -51,8 +44,6 @@ public class HomeController implements Initializable {
     @FXML
     private FlowPane flowPane;
     @FXML
-    private ComboBox comboBox;
-    @FXML
     private Button uploadFormButton;
     @FXML
     private ImageView pfp;
@@ -60,6 +51,10 @@ public class HomeController implements Initializable {
     private ImageView ppfp;
     @FXML
     private Label labelWelcome;
+    @FXML
+    private TextField tfSearch;
+
+    private Timer searchTimer = new Timer();
 
     //Constructor
     public HomeController() {
@@ -85,18 +80,28 @@ public class HomeController implements Initializable {
 
         //Calls the method to load the images as soon as home screen is loaded
         showImage(null);
-    }
 
-    private void openItemDetail(Item itemDetails) {
-        try {
-            //Set item details in ItemDetails class
-            ItemDetails.getInstance().setCurrentItem(itemDetails);
+        tfSearch.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (searchTimer != null) {
+                //Cancel previous timer
+                searchTimer.cancel();
+            }
 
-            //Use App class to switch scenes
-            App.switchScene("itemdescription");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            searchTimer = new Timer();
+            searchTimer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    Platform.runLater(() -> {
+                        if (!newValue.trim().isEmpty()) {
+                            performLiveSearch(newValue.trim());
+                        } else {
+                            showImage(null);
+                        }
+                    });
+                }
+                //Adjust this delay to make more responsive, but will trigger duplicates if typed fast
+            }, 500); 
+        });
     }
 
     @FXML
@@ -117,6 +122,36 @@ public class HomeController implements Initializable {
     @FXML
     private void electronicsButton(ActionEvent event) {
         showImagesByCategory("Electronic");
+    }
+
+    @FXML
+    private void logoutButton(ActionEvent event) {
+        try {
+            //Clear current user's session data
+            CurrentUser.logout();
+
+            //Go back to login screen
+            App.switchScene("login");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void switchToAccountDetails(ActionEvent event) throws IOException {
+        App.setRoot("accountDetails");
+    }
+
+    private void openItemDetail(Item itemDetails) {
+        try {
+            //Set item details in ItemDetails class
+            ItemDetails.getInstance().setCurrentItem(itemDetails);
+
+            //Use App class to switch scenes
+            App.switchScene("itemdescription");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -164,7 +199,7 @@ public class HomeController implements Initializable {
                             Label categoryLabel = new Label("Category: " + category);
 
                             VBox imageAndDescription = new VBox(imageView, nameLabel, priceLabel, conditionLabel, categoryLabel);
-                            flowPane.getChildren().add(imageAndDescription);
+                            addItemToFlowPane(imageAndDescription);
                         });
                     }
                 } catch (Exception e) {
@@ -246,7 +281,7 @@ public class HomeController implements Initializable {
                             Label conditionLabel = new Label("Condition: " + condition);
                             Label categoryLabel = new Label("Category: " + category);
                             VBox imageAndDescription = new VBox(imageView, nameLabel, priceLabel, conditionLabel, categoryLabel);
-                            flowPane.getChildren().add(imageAndDescription);
+                            addItemToFlowPane(imageAndDescription);
                         });
                     }
                 } catch (Exception e) {
@@ -260,21 +295,70 @@ public class HomeController implements Initializable {
         thread.start();
     }
 
-    @FXML
-    private void logoutButton(ActionEvent event) {
-        try {
-            //Clear current user's session data
-            CurrentUser.logout();
-            
-            //Go back to login screen
-            App.switchScene("login");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void performLiveSearch(String searchText) {
+        //debug line
+        System.out.println("Searching for: " + searchText);
+        // Clear existing content in the flowPane
+        flowPane.getChildren().clear();
+
+        Task<Void> searchTask = new Task<Void>() {
+            @Override
+            protected Void call() {
+                try {
+                    Firestore db = FirestoreClient.getFirestore();
+                    CollectionReference items = db.collection("Items");
+
+                    //Adjust this query to match your search criteria
+                    Query query = items.orderBy("productName").startAt(searchText).endAt(searchText + "\uf8ff");
+                    ApiFuture<QuerySnapshot> querySnapshot = query.get();
+
+                    for (DocumentSnapshot document : querySnapshot.get().getDocuments()) {
+                        Map<String, Object> item = document.getData();
+                        //Existing code to handle and display each item...
+                        //imageUrl and other metadata are stored in the document
+                        String imageUrl = (String) item.get("imageUrl");
+                        String productName = (String) item.get("productName");
+                        String productPrice = String.format("%.2f", (Double) item.get("price"));
+                        String condition = (String) item.get("condition");
+                        String category = (String) item.get("category");
+                        String comments = (String) item.get("comments");
+                        String description = (String) item.get("description");
+
+                        Image image = new Image(imageUrl);
+                        Platform.runLater(() -> {
+                            ImageView imageView = new ImageView(image);
+                            imageView.setFitWidth(200);
+                            imageView.setPreserveRatio(true);
+
+                            imageView.setOnMouseClicked(event -> {
+                                double priceValue = Double.parseDouble(productPrice);
+                                Item itemClass = new Item(category, comments, condition, description, priceValue, imageUrl, productName);
+                                openItemDetail(itemClass);
+                            });
+
+                            Label nameLabel = new Label("Name: " + productName);
+                            Label priceLabel = new Label("Price: $" + productPrice);
+                            Label conditionLabel = new Label("Condition: " + condition);
+                            Label categoryLabel = new Label("Category: " + category);
+
+                            VBox imageAndDescription = new VBox(imageView, nameLabel, priceLabel, conditionLabel, categoryLabel);
+                            addItemToFlowPane(imageAndDescription);
+                        });
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        };
+        Thread thread = new Thread(searchTask);
+        thread.setDaemon(true);
+        thread.start();
     }
-    
-    @FXML
-    void switchToAccountDetails(ActionEvent event) throws IOException{
-        App.setRoot("accountDetails");
+
+    private synchronized void addItemToFlowPane(VBox itemBox) {
+        Platform.runLater(() -> {
+            flowPane.getChildren().add(itemBox);
+        });
     }
 }
