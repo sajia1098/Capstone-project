@@ -57,6 +57,10 @@ public class RegistrationController {
     @FXML
     private ImageView defaultImageView2;
     @FXML
+    private ImageView defaultImageView3;
+    @FXML
+    private ImageView defaultImageView4;
+    @FXML
     private Button uploadProfile;
     @FXML
     private Button cycleProfile;
@@ -73,6 +77,10 @@ public class RegistrationController {
 
         Image img2 = new Image("/Assets/Profile/default_image1.png");
         defaultImageView2.setImage(img2);
+        Image img3 = new Image("/Assets/Profile/pic2.jpg");
+        defaultImageView3.setImage(img3);
+        Image img4 = new Image("/Assets/Profile/pic3.png");
+        defaultImageView4.setImage(img4);
 
         //Initialize with one image visible
         defaultImageView1.setVisible(true);
@@ -83,9 +91,29 @@ public class RegistrationController {
         if (defaultImageView1.isVisible()) {
             defaultImageView1.setVisible(false);
             defaultImageView2.setVisible(true);
-        } else {
-            defaultImageView1.setVisible(true);
-            defaultImageView2.setVisible(false);
+            defaultImageView3.setVisible(false);
+            defaultImageView4.setVisible(false);
+
+        } 
+        else if(defaultImageView2.isVisible())
+        {
+           defaultImageView1.setVisible(false);
+           defaultImageView2.setVisible(false);
+           defaultImageView3.setVisible(true);
+           defaultImageView4.setVisible(false);
+
+        }
+        else if (defaultImageView3.isVisible()){
+           defaultImageView1.setVisible(false);
+           defaultImageView2.setVisible(false);
+           defaultImageView3.setVisible(false);
+           defaultImageView4.setVisible(true);
+        }
+        else if (defaultImageView4.isVisible()){
+           defaultImageView1.setVisible(true);
+           defaultImageView2.setVisible(false);
+           defaultImageView3.setVisible(false);
+           defaultImageView4.setVisible(false);
         }
     }
 

@@ -17,11 +17,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="654.0" prefWidth="954.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ProductformController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="654.0" prefWidth="954.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ProductformController">
     <children>
-        <Label text="Submit a Product" translateX="20.0" translateY="10.0">
+        <Label text="Submit a Product" textFill="WHITE" translateX="20.0" translateY="10.0">
             <font>
-                <Font name="System Bold" size="20.0" />
+                <Font name="Futura Medium" size="20.0" />
             </font>
             <VBox.margin>
                 <Insets bottom="20.0" />
@@ -32,23 +32,32 @@
             <padding>
                 <Insets bottom="20" left="20" right="20" top="20" />
             </padding>
-            <Label text="Product Name" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <Label text="Product Name" textFill="#fffdfd" GridPane.columnIndex="0" GridPane.rowIndex="0">
+            <font>
+               <Font name="Apple LiGothic Medium" size="17.0" />
+            </font></Label>
             <TextField fx:id="tfProductname" promptText="Enter product here" GridPane.columnIndex="1" GridPane.rowIndex="0" />
             
-            <Label text="Product Category" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <Label text="Product Category" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="1">
+            <font>
+               <Font name="Apple LiGothic Medium" size="17.0" />
+            </font></Label>
             <ComboBox fx:id="cbCategory" promptText="Please Select" GridPane.columnIndex="1" GridPane.rowIndex="1">
                 <!-- Items can be added here or via the controller -->
             </ComboBox>
             
-            <Label text="Product Condition" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <Label text="Product Condition" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="2">
+            <font>
+               <Font name="Apple LiGothic Medium" size="17.0" />
+            </font></Label>
             <HBox spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                 <children>
-                    <RadioButton fx:id="rbNew" text="Brand New">
+                    <RadioButton fx:id="rbNew" text="Brand New" textFill="#fffdfd">
                   <toggleGroup>
                      <ToggleGroup fx:id="radioGroup" />
                   </toggleGroup></RadioButton>
-                    <RadioButton fx:id="rbUsed" text="Used" toggleGroup="$radioGroup" />
-                    <RadioButton fx:id="rbRefurbished" text="Refurbished" toggleGroup="$radioGroup" />
+                    <RadioButton fx:id="rbUsed" text="Used" textFill="#fff7f7" toggleGroup="$radioGroup" />
+                    <RadioButton fx:id="rbRefurbished" text="Refurbished" textFill="WHITE" toggleGroup="$radioGroup" />
                     <!-- These should be in a ToggleGroup, set via the controller -->
                 </children>
             <GridPane.margin>
@@ -56,10 +65,16 @@
             </GridPane.margin>
             </HBox>
             
-                  <Label prefHeight="17.0" prefWidth="113.0" text="Product Price" GridPane.rowIndex="3" />
+                  <Label prefHeight="17.0" prefWidth="113.0" text="Product Price" textFill="WHITE" GridPane.rowIndex="3">
+            <font>
+               <Font name="Apple LiGothic Medium" size="18.0" />
+            </font></Label>
             <TextField fx:id="tfPrice" promptText="Enter price here, Ex: $5" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             
-            <Label text="Image of Product" GridPane.rowIndex="4" />
+            <Label text="Image of Product" textFill="#fffefe" GridPane.rowIndex="4">
+            <font>
+               <Font name="Apple LiGothic Medium" size="17.0" />
+            </font></Label>
             <Button fx:id="uploadProductImage" onAction="#handleUploadImage" text="Choose Image" GridPane.columnIndex="1" GridPane.rowIndex="4">
             <GridPane.margin>
                <Insets left="75.0" />
@@ -71,10 +86,16 @@
          </ImageView>
             <!-- Label to show the file chosen can be added -->
             
-            <Label text="Additional Description" GridPane.rowIndex="5" />
+            <Label text="Additional Description" textFill="WHITE" GridPane.rowIndex="5">
+            <font>
+               <Font name="Apple LiGothic Medium" size="14.0" />
+            </font></Label>
             <TextArea fx:id="productDescription" prefHeight="86.0" prefWidth="500.0" promptText="Enter description here" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             
-            <Label text="Comments" GridPane.rowIndex="6" />
+            <Label text="Comments" textFill="#fffdfd" GridPane.rowIndex="6">
+            <font>
+               <Font name="Apple LiGothic Medium" size="17.0" />
+            </font></Label>
             <TextArea fx:id="productComments" prefHeight="86.0" prefWidth="500.0" promptText="Enter comments here" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             
             <Button fx:id="bnSubmit" onAction="#handleSubmit" text="Submit Form" GridPane.columnIndex="1" GridPane.rowIndex="7">
