@@ -9,26 +9,52 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="689.0" prefWidth="953.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HomeController">
+<BorderPane prefHeight="689.0" prefWidth="953.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HomeController">
    <top>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="118.0" prefWidth="954.0" style="-fx-background-color: #416663; -fx-border-color: #000000;" BorderPane.alignment="CENTER">
+          <AnchorPane prefWidth="954.0" style="-fx-background-color: #416663; -fx-border-color: #000000;" BorderPane.alignment="CENTER">
               <children>
-                  <TextField fx:id="tfSearch" layoutX="57.0" layoutY="46.0" prefHeight="26.0" prefWidth="319.0" promptText="Search item here" />
-                  <Button fx:id="uploadFormButton" layoutX="420.0" layoutY="46.0" mnemonicParsing="false" onAction="#uploadButton" text="Upload" />
-                  <Button layoutX="515.0" layoutY="46.0" mnemonicParsing="false" onAction="#showImage" text="Refresh Items" />
-                  <ImageView id="pfp" fx:id="pfp" fitHeight="54.0" fitWidth="57.0" layoutX="757.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="ppfp" fitHeight="42.0" fitWidth="57.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
+                  <TextField fx:id="tfSearch" layoutX="81.0" layoutY="22.0" prefHeight="26.0" prefWidth="319.0" promptText="Search item here" />
+            <StackPane layoutX="866.0" layoutY="17.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+               <children>
+                        <ImageView id="pfp" fx:id="pfp" fitHeight="54.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER" />
+                  <Circle fill="WHITE" radius="28.0" stroke="BLACK" strokeType="INSIDE" StackPane.alignment="CENTER" />
+               </children>
+            </StackPane>
+            <HBox alignment="CENTER" layoutX="541.0" layoutY="3.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0">
+               <children>
+                        <Button fx:id="uploadFormButton" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#uploadButton" text="Upload" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
+                        <Button alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showImage" text="Refresh Items" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
+                  <Button alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#logoutButton" text="Logout" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
+                  <Button alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#switchToAccountDetails" text="Account Details" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
+               </children>
+            </HBox>
+                  <ImageView fx:id="ppfp" fitHeight="42.0" fitWidth="57.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
                       <image>
                           <Image url="@../Assets/Screenshot%202023-11-13%20at%209.05.46%20PM.png" />
                       </image>
                   </ImageView>
-            <Label fx:id="labelWelcome" layoutX="380.0" layoutY="8.0" prefHeight="17.0" prefWidth="269.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #000000;" />
-            <Button layoutX="650.0" layoutY="46.0" mnemonicParsing="false" onAction="#logoutButton" text="Logout" />
-            <Button layoutX="736.0" layoutY="76.0" mnemonicParsing="false" onAction="#switchToAccountDetails" text="Account Details" />
-            <Circle fill="WHITE" layoutX="786.0" layoutY="44.0" radius="28.0" stroke="BLACK" strokeType="INSIDE" />
+            <Label fx:id="labelWelcome" layoutX="148.0" layoutY="55.0" style="-fx-background-color: #416663; -fx-border-color: #000000;" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
               </children>
           </AnchorPane>
    </top>
