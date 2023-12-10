@@ -1,0 +1,28 @@
+#bnLogin {
+    -fx-font-weight: bold;
+    -fx-font-size: 20;
+    -fx-background-color: #416663;
+    -fx-border-color: black;
+    -fx-text-fill: black;
+    -fx-cursor: pointer;
+    -fx-transition: background-color 0.3s ease;
+}
+
+#bnLogin:hover {
+    -fx-background-color: #1b2726;
+}
+
+
+#bnNeedAccount {
+    -fx-font-weight: bold;
+    -fx-font-size: 20;
+    -fx-background-color: #000000;
+    -fx-border-color: white;
+    -fx-text-fill: white;
+    -fx-cursor: pointer;
+    -fx-transition: background-color 0.3s ease;
+}
+
+#bnNeedAccount:hover {
+    -fx-background-color: #adadad;
+}

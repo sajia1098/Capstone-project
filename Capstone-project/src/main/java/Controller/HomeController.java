@@ -30,6 +30,7 @@ import java.util.concurrent.Executors;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import project.App;
@@ -53,6 +54,12 @@ public class HomeController implements Initializable {
     private Label labelWelcome;
     @FXML
     private TextField tfSearch;
+    @FXML
+    private Button refreshItemsButton;
+    @FXML
+    private Button logoutButton;
+    @FXML
+    private Button accountDetailsButton;
 
     private Timer searchTimer = new Timer();
 
@@ -199,6 +206,7 @@ public class HomeController implements Initializable {
                             Label categoryLabel = new Label("Category: " + category);
 
                             VBox imageAndDescription = new VBox(imageView, nameLabel, priceLabel, conditionLabel, categoryLabel);
+                            imageAndDescription.setPadding(new Insets(10));
                             addItemToFlowPane(imageAndDescription);
                         });
                     }

@@ -28,19 +28,19 @@
             </StackPane>
             <HBox alignment="CENTER" layoutX="541.0" layoutY="3.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0">
                <children>
-                        <Button fx:id="uploadFormButton" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#uploadButton" text="Upload" HBox.hgrow="ALWAYS">
+                        <Button fx:id="uploadFormButton" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#uploadButton" styleClass="group1" stylesheets="@../Styles/home.css" text="Upload" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font></Button>
-                        <Button alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showImage" text="Refresh Items" HBox.hgrow="ALWAYS">
+                        <Button fx:id="refreshItemsButton" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showImage" styleClass="group1" stylesheets="@../Styles/home.css" text="Refresh Items" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font></Button>
-                  <Button alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#logoutButton" text="Logout" HBox.hgrow="ALWAYS">
+                  <Button fx:id="logoutButton" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#logoutButton" styleClass="group1" stylesheets="@../Styles/home.css" text="Logout" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font></Button>
-                  <Button alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#switchToAccountDetails" text="Account Details" HBox.hgrow="ALWAYS">
+                  <Button fx:id="accountDetailsButton" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#switchToAccountDetails" styleClass="group1" stylesheets="@../Styles/home.css" text="Account Details" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font></Button>
@@ -61,9 +61,9 @@
    <left>
       <VBox style="-fx-background-color: #BDBCBC; -fx-border-color: #000000;" BorderPane.alignment="CENTER">
          <children>
-                      <Button mnemonicParsing="false" onAction="#clothesButton" prefHeight="94.0" prefWidth="187.0" text="Clothes" />
-                      <Button mnemonicParsing="false" onAction="#textbooksButton" prefHeight="107.0" prefWidth="187.0" text="Textbook" />
-                      <Button mnemonicParsing="false" onAction="#electronicsButton" prefHeight="107.0" prefWidth="187.0" text="Electronics" />
+                      <Button fx:id="clothesBtn" mnemonicParsing="false" onAction="#clothesButton" prefHeight="94.0" prefWidth="187.0" stylesheets="@../Styles/home.css" text="Clothes" />
+                      <Button fx:id="textbookBtn" mnemonicParsing="false" onAction="#textbooksButton" prefHeight="107.0" prefWidth="187.0" stylesheets="@../Styles/home.css" text="Textbook" />
+                      <Button fx:id="electronicsBtn" mnemonicParsing="false" onAction="#electronicsButton" prefHeight="107.0" prefWidth="187.0" stylesheets="@../Styles/home.css" text="Electronics" />
          </children>
       </VBox>
    </left>

@@ -13,14 +13,17 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AccountDetailsController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AccountDetailsController">
    <top>
       <HBox alignment="CENTER" prefHeight="90.0" prefWidth="700.0" style="-fx-background-color: #416663; -fx-border-color: #231F20;" BorderPane.alignment="CENTER">
          <children>
-              <Button fx:id="returnToHomePageButton" alignment="CENTER" onAction="#returnToHomePageHandler" text="Return to Home Page">
+              <Button fx:id="returnToHomePageButton" alignment="CENTER" onAction="#returnToHomePageHandler" prefHeight="143.0" prefWidth="138.0" stylesheets="@../Styles/accountDetails.css" text="Return to Home Page">
                <font>
                   <Font name="System Bold" size="12.0" />
-               </font></Button>
+               </font>
+               <HBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </HBox.margin></Button>
          </children>
       </HBox>
    </top>
@@ -41,13 +44,13 @@
                   <Circle fill="WHITE" layoutX="97.0" layoutY="56.0" radius="46.0" stroke="BLACK" strokeType="INSIDE" />
                </children>
             </Pane>
-            <Button fx:id="changeProfilePictureButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#changeProfilePictureButtonHandler" prefHeight="25.0" prefWidth="145.0" text="Change Profile Picture" textAlignment="CENTER">
+            <Button fx:id="changeProfilePictureButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#changeProfilePictureButtonHandler" prefWidth="500.0" stylesheets="@../Styles/accountDetails.css" text="Change Profile Picture" textAlignment="CENTER">
                <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets />
                </VBox.margin></Button>
             <HBox>
                <children>
-                  <Label text="First Name:" />
+                  <Label text="First Name:  " />
                   <Label fx:id="userFirstNameLabel" text="DISPLAYFIRSTNAME" />
                </children>
                <VBox.margin>
@@ -56,7 +59,7 @@
             </HBox>
             <HBox prefHeight="22.0" prefWidth="100.0">
                <children>
-                  <Label text="Last Name:" />
+                  <Label text="Last Name:  " />
                   <Label fx:id="userLastNameLabel" text="DISPLAYLASTNAME" />
                </children>
                <VBox.margin>
@@ -65,19 +68,22 @@
             </HBox>
             <HBox prefHeight="23.0" prefWidth="100.0">
                <children>
-                  <Label text="RAMID:" />
+                  <Label text="RAMID:  " />
                   <Label fx:id="userRAMIDLabel" text="R00000000" />
                </children>
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </HBox>
-            <Button fx:id="requestPasswordResetButton" mnemonicParsing="false" onAction="#requestPasswordResetHandler" text="Request Password Reset">
+            <Button fx:id="requestPasswordResetButton" mnemonicParsing="false" onAction="#requestPasswordResetHandler" prefWidth="500.0" stylesheets="@../Styles/accountDetails.css" text="Request Password Reset">
                <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets />
                </VBox.margin>
             </Button>
-            <Button fx:id="inbox" mnemonicParsing="false" onAction="#openInboxButton" prefHeight="26.0" prefWidth="154.0" text="Inbox" />
+            <Button fx:id="inbox" mnemonicParsing="false" onAction="#openInboxButton" prefHeight="26.0" prefWidth="500.0" stylesheets="@../Styles/accountDetails.css" text="Inbox">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin></Button>
          </children>
          <BorderPane.margin>
             <Insets />
@@ -104,7 +110,7 @@
             </HBox>
             <ScrollPane prefHeight="391.0" prefWidth="505.0">
                <content>
-                  <FlowPane fx:id="flowPane" prefHeight="200.0" prefWidth="200.0" />
+                  <FlowPane fx:id="flowPane" prefHeight="400.0" prefWidth="500.0" />
                </content>
             </ScrollPane>
          </children>

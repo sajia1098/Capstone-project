@@ -1,0 +1,91 @@
+#uploadFormButton {
+    -fx-font-weight: bold;
+    -fx-background-color: #416663;
+    -fx-font-size: 12;
+    -fx-text-fill: black;
+    -fx-cursor: pointer;
+    -fx-transition: background-color 0.3s ease;
+}
+
+#uploadFormButton:hover {
+    -fx-background-color: #1b2726;
+}
+
+#refreshItemsButton {
+    -fx-font-weight: bold;
+    -fx-background-color: #416663;
+    -fx-font-size: 12;
+    -fx-text-fill: black;
+    -fx-cursor: pointer;
+    -fx-transition: background-color 0.3s ease;
+}
+
+#refreshItemsButton:hover {
+    -fx-background-color: #1b2726;
+}
+
+#logoutButton {
+    -fx-font-weight: bold;
+    -fx-background-color: #416663;
+    -fx-font-size: 12;
+    -fx-text-fill: black;
+    -fx-cursor: pointer;
+    -fx-transition: background-color 0.3s ease;
+}
+
+#logoutButton:hover {
+    -fx-background-color: #1b2726;
+}
+
+#accountDetailsButton {
+    -fx-font-weight: bold;
+    -fx-background-color: #416663;
+    -fx-font-size: 12;
+    -fx-text-fill: black;
+    -fx-cursor: pointer;
+    -fx-transition: background-color 0.3s ease;
+}
+
+#accountDetailsButton:hover {
+    -fx-background-color: #1b2726;
+}
+
+
+#clothesBtn {
+    -fx-font-weight: bold;
+    -fx-background-color: #BDBCBC;
+    -fx-font-size: 12;
+    -fx-text-fill: black;
+    -fx-cursor: pointer;
+    -fx-transition: background-color 0.3s ease;
+}
+
+#clothesBtn:hover {
+    -fx-background-color: #5a5a5a;
+}
+
+#textbookBtn {
+    -fx-font-weight: bold;
+    -fx-background-color: #BDBCBC;
+    -fx-font-size: 12;
+    -fx-text-fill: black;
+    -fx-cursor: pointer;
+    -fx-transition: background-color 0.3s ease;
+}
+
+#textbookBtn:hover {
+    -fx-background-color: #5a5a5a;
+}
+
+#electronicsBtn {
+    -fx-font-weight: bold;
+    -fx-background-color: #BDBCBC;
+    -fx-font-size: 12;
+    -fx-text-fill: black;
+    -fx-cursor: pointer;
+    -fx-transition: background-color 0.3s ease;
+}
+
+#electronicsBtn:hover {
+    -fx-background-color: #5a5a5a;
+}
