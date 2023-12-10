@@ -1,0 +1,52 @@
+#inbox {
+    -fx-font-weight: bold;
+    -fx-background-color: #BDBCBC;
+    -fx-font-size: 12;
+    -fx-text-fill: black;
+    -fx-cursor: pointer;
+    -fx-transition: background-color 0.3s ease;
+}
+
+#inbox:hover {
+    -fx-background-color: #5a5a5a;
+}
+
+#changeProfilePictureButton {
+    -fx-font-weight: bold;
+    -fx-background-color: #BDBCBC;
+    -fx-font-size: 12;
+    -fx-text-fill: black;
+    -fx-cursor: pointer;
+    -fx-transition: background-color 0.3s ease;
+}
+
+#changeProfilePictureButton:hover {
+    -fx-background-color: #5a5a5a;
+}
+
+#requestPasswordResetButton {
+    -fx-font-weight: bold;
+    -fx-background-color: #BDBCBC;
+    -fx-font-size: 12;
+    -fx-text-fill: black;
+    -fx-cursor: pointer;
+    -fx-transition: background-color 0.3s ease;
+}
+
+#requestPasswordResetButton:hover {
+    -fx-background-color: #5a5a5a;
+}
+
+
+#returnToHomePageButton {
+    -fx-font-weight: bold;
+    -fx-background-color: #416663;
+    -fx-font-size: 12;
+    -fx-text-fill: black;
+    -fx-cursor: pointer;
+    -fx-transition: background-color 0.3s ease;
+}
+
+#returnToHomePageButton:hover {
+    -fx-background-color: #1b2726;
+}
