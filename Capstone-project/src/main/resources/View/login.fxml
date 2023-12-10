@@ -16,17 +16,17 @@
          <children>
             <Label layoutX="121.0" layoutY="241.0" text="Welcome back!" textFill="WHITE">
                <font>
-                  <Font name="Lovelo Black" size="36.0" />
+                  <Font name="System Bold" size="36.0" />
                </font>
             </Label>
-            <Button fx:id="bnNeedAccount" layoutX="178.0" layoutY="325.0" mnemonicParsing="false" onAction="#switchToRegistration" text="Need an account?">
+            <Button fx:id="bnNeedAccount" layoutX="178.0" layoutY="325.0" mnemonicParsing="false" onAction="#switchToRegistration" text="Need an Account?">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
             <ImageView fitHeight="176.0" fitWidth="260.0" layoutX="118.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@Screenshot%202023-11-13%20at%209.05.46%20PM.png" />
+                  <Image url="@../Assets/Screenshot%202023-11-13%20at%209.05.46%20PM.png" />
                </image>
             </ImageView>
          </children>
@@ -35,7 +35,7 @@
    <center>
       <AnchorPane prefHeight="500.0" prefWidth="525.0" style="-fx-background-color: #416663;" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="78.0" layoutY="161.0" text="Login with an existing Ram ID" textFill="WHITE">
+            <Label layoutX="78.0" layoutY="161.0" text="Login with an Existing Ram ID" textFill="WHITE">
                <font>
                   <Font name="Lovelo Black" size="20.0" />
                </font>
