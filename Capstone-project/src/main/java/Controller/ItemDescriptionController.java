@@ -41,6 +41,8 @@ public class ItemDescriptionController implements Initializable{
     private Label productCategoryLabel;
     @FXML
     private Button bnHome;
+    @FXML
+    private Button openMessageButton;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -60,9 +62,19 @@ public class ItemDescriptionController implements Initializable{
     }
 
     @FXML
-    private void backToHome(ActionEvent event) {
+    public void backToHome() {
         try {
             App.switchScene("home");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    
+    @FXML
+    public void openMessaging () {
+        try {
+            App.switchScene("message");
         } catch (IOException e) {
             e.printStackTrace();
         }

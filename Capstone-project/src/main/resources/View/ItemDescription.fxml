@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ItemDescriptionController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ItemDescriptionController">
     <VBox alignment="CENTER" prefHeight="100.0" prefWidth="540.0" style="-fx-background-color: #416663; -fx-border-color: #000000;" VBox.vgrow="ALWAYS">
       <HBox alignment="CENTER">
          <children>
@@ -17,6 +17,7 @@
     </VBox>
    <HBox alignment="CENTER" style="-fx-background-color: #BDBCBC; -fx-border-color: #000000;" VBox.vgrow="ALWAYS">
       <children>
+         <Button fx:id="openMessageButton" mnemonicParsing="false" onAction="#openMessaging" text="message" />
           <ImageView fx:id="productImageView" fitHeight="434.0" fitWidth="833.0" preserveRatio="true" />
       </children>
       <VBox.margin>
