@@ -14,11 +14,16 @@ import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import project.App;
 import project.FireStoreContext;
 
@@ -45,6 +50,16 @@ public class RegistrationController {
     private Button backToLogin;
 
     private Firestore db;
+    @FXML
+    private Circle circle;
+    @FXML
+    private ImageView defaultImageView1;
+    @FXML
+    private ImageView defaultImageView2;
+    @FXML
+    private Button uploadProfile;
+    @FXML
+    private Button cycleProfile;
 
     public RegistrationController() {
         FireStoreContext fireStoreContext = new FireStoreContext();
@@ -52,16 +67,47 @@ public class RegistrationController {
     }
 
     public void initialize() {
-        //Initialization code here if needed
+        //Change to whatever the image name is called in the Assets/Profile is called
+        Image img1 = new Image("/Assets/Profile/default_image.png");
+        defaultImageView1.setImage(img1);
+
+        Image img2 = new Image("/Assets/Profile/default_image1.png");
+        defaultImageView2.setImage(img2);
+
+        //Initialize with one image visible
+        defaultImageView1.setVisible(true);
     }
 
+    private void toggleImage() {
+        //Add more ImageViews here to cycle through more default pictures
+        if (defaultImageView1.isVisible()) {
+            defaultImageView1.setVisible(false);
+            defaultImageView2.setVisible(true);
+        } else {
+            defaultImageView1.setVisible(true);
+            defaultImageView2.setVisible(false);
+        }
+    }
+
+    @FXML
+    private void cycleProfilePictureButtonClicked() {
+        toggleImage();
+    }
+
+    @FXML
+    private void uploadProfileButtonClicked() {
+        //TODO UPLOAD PROFILE FROM DESKTOP
+        //ADD CODE TO UPLOAD TOGETHER WITH LOGIN INFORMATION TO DATABASE
+    }
+
+    
     @FXML
     private void signupButtonClicked() throws IOException {
         if (areFieldsValid()) {
             try {
                 if (registerUser()) {
                     showAlert("Registration Successful", "You have successfully registered!");
-                    App.setRoot("login");
+                    App.switchScene("login");
                 }
             } catch (InterruptedException | ExecutionException e) {
                 showAlert("Registration Error", "Error during registration: " + e.getMessage());
@@ -72,7 +118,7 @@ public class RegistrationController {
     @FXML
     private void switchToLogin() throws IOException {
         //Switch to the login scene
-        App.setRoot("login");
+        App.switchScene("login");
     }
 
     private boolean areFieldsValid() {
@@ -144,5 +190,9 @@ public class RegistrationController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    @FXML
+    private void uploadProfileButtonClicked(ActionEvent event) {
     }
 }

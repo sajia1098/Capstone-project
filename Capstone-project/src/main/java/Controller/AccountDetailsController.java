@@ -42,8 +42,6 @@ public class AccountDetailsController{
     @FXML
     private FlowPane flowPane;
 
-    @FXML
-    private Circle profilePictureCircle;
 
     @FXML
     private Button requestPasswordResetButton;
@@ -61,6 +59,8 @@ public class AccountDetailsController{
     private Label userRAMIDLabel;
     @FXML
     private VBox box;
+    @FXML
+    private Button inbox;
 
     @FXML
     void changeProfilePictureButtonHandler(ActionEvent event) {
@@ -71,7 +71,14 @@ public class AccountDetailsController{
     void requestPasswordResetHandler(ActionEvent event) {
 
     }
-
+   
+    @FXML
+    public void openInboxButton(){
+        ItemDescriptionController x = new ItemDescriptionController();
+        x.openMessaging();
+        
+    }
+   
     @FXML
     void returnToHomePageHandler(ActionEvent event) throws IOException{
         App.setRoot("home");
