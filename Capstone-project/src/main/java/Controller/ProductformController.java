@@ -173,7 +173,7 @@ public class ProductformController implements Initializable {
         //Show success message
         showAlert("Product Form", "Product Added!\nClick OK to go back to the home screen!");
         //Go back to home screen
-        App.setRoot("home");
+        App.switchScene("home");
     }
 
     @FXML

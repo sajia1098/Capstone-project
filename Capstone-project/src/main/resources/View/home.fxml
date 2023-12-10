@@ -22,7 +22,7 @@
                   <ImageView id="pfp" fx:id="pfp" fitHeight="54.0" fitWidth="57.0" layoutX="757.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="ppfp" fitHeight="42.0" fitWidth="57.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
                       <image>
-                          <Image url="@Screenshot%202023-11-13%20at%209.05.46%20PM.png" />
+                          <Image url="@../Assets/Screenshot%202023-11-13%20at%209.05.46%20PM.png" />
                       </image>
                   </ImageView>
             <Label fx:id="labelWelcome" layoutX="380.0" layoutY="8.0" prefHeight="17.0" prefWidth="269.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #000000;" />

@@ -47,7 +47,7 @@ public class MessageController {
         this.sendMessageButton = sendMessageButton;
         this.messageTextField = messageTextField;
 
-        // Set the ObservableList as the items for the ListView
+        //Set the ObservableList as the items for the ListView
         messageListView.setItems(messageList);
     }
 
