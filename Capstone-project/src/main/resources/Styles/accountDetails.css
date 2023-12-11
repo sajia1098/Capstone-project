@@ -41,7 +41,7 @@
 #returnToHomePageButton {
     -fx-font-weight: bold;
     -fx-background-color: #416663;
-    -fx-font-size: 12;
+    -fx-font-size: 20;
     -fx-text-fill: black;
     -fx-cursor: pointer;
     -fx-transition: background-color 0.3s ease;
