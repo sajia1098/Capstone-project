@@ -2,6 +2,7 @@ package Controller;
 
 import Model.CurrentUser;
 import Model.Message;
+import java.io.IOException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
@@ -98,8 +99,7 @@ public void loadMessages(String senderId, String receiverId) {
     }
 
     @FXML
-    public void home() {
-        ItemDescriptionController x = new ItemDescriptionController();
-        x.backToHome();
+    public void home() throws IOException {
+        App.setRoot("accountDetails");
     }
 }

@@ -1,0 +1,25 @@
+#messageToHomeButton {
+    -fx-font-weight: bold;
+    -fx-background-color: #416663;
+    -fx-font-size: 20;
+    -fx-text-fill: black;
+    -fx-cursor: pointer;
+    -fx-transition: background-color 0.3s ease;
+}
+
+#messageToHomeButton:hover {
+    -fx-background-color: #1b2726;
+}
+
+#sendMessageButton {
+    -fx-font-weight: bold;
+    -fx-background-color: #BDBCBC;
+    -fx-font-size: 12;
+    -fx-text-fill: black;
+    -fx-cursor: pointer;
+    -fx-transition: background-color 0.3s ease;
+}
+
+#sendMessageButton:hover {
+    -fx-background-color: #5a5a5a;
+}
