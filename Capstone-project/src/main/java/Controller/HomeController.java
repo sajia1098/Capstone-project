@@ -238,9 +238,14 @@ public class HomeController implements Initializable {
                 if (document.exists()) {
                     String firstName = document.getString("FirstName");
                     String lastName = document.getString("LastName");
-
+                    String profilePicUrl = document.getString("ProfilePicUrl");
                     Platform.runLater(() -> {
                         labelWelcome.setText("Welcome, " + firstName + " " + lastName + " (RAMID: " + currentUserId + ")");
+                        if (profilePicUrl != null && !profilePicUrl.isEmpty()) {
+                            Image profileImage = new Image(profilePicUrl, true);
+                            //Set the profile image in the ImageView
+                            pfp.setImage(profileImage);
+                        }
                     });
                 } else {
                     System.out.println("User not found with ID: " + currentUserId);
@@ -351,7 +356,7 @@ public class HomeController implements Initializable {
                         String comments = (String) item.get("comments");
                         String description = (String) item.get("description");
                         String ownerId = (String) item.get("RamID");
-                        
+
                         Image image = new Image(imageUrl);
                         Platform.runLater(() -> {
                             ImageView imageView = new ImageView(image);

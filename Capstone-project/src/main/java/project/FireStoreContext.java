@@ -5,37 +5,36 @@ import com.google.cloud.firestore.Firestore;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 
 public class FireStoreContext {
 
-    // Initialize Firebase
+    //Initialize Firebase
     public Firestore firebase() {
         try {
-            // Check if Firebase has already been initialized
+            //Check if Firebase has already been initialized
             if (FirebaseApp.getApps().isEmpty()) {
                 FileInputStream serviceAccount = new FileInputStream("key.json");
 
-                // Initialize Firebase with the provided credentials and database URL
+                //Initialize Firebase with the provided credentials and database URL
                 FirebaseOptions options = new FirebaseOptions.Builder()
                         .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                         .setDatabaseUrl("https://csc325-capstone.firebaseio.com")
                         .setStorageBucket("csc325-capstone.appspot.com")
                         .build();
 
-                // Initialize the Firebase app
+                //Initialize the Firebase app
                 FirebaseApp.initializeApp(options);
             }
 
-            // Return the Firestore instance
+            //Return the Firestore instance
             return FirestoreClient.getFirestore();
 
         } catch (IOException ex) {
-            // Logs the exception
+            //Logs the exception
             ex.printStackTrace();
-            // Return null
+            //Return null
             return null;
         }
     }

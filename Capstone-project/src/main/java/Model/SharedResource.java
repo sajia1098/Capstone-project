@@ -9,6 +9,7 @@ package Model;
  * @author Elan
  */
 public class SharedResource {
+
     private static SharedResource instance;
     private String ownerId;
 
