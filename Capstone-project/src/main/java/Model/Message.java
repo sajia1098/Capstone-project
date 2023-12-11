@@ -3,6 +3,7 @@ package Model;
 import java.util.Date;
 
 public class Message {
+
     private String senderId;
     private String receiverId;
     private String content;

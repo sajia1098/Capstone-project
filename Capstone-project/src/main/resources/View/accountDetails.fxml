@@ -5,115 +5,127 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AccountDetailsController">
-   <top>
-      <HBox alignment="CENTER" prefHeight="90.0" prefWidth="700.0" style="-fx-background-color: #416663; -fx-border-color: #231F20;" BorderPane.alignment="CENTER">
-         <children>
-              <Button fx:id="returnToHomePageButton" alignment="CENTER" onAction="#returnToHomePageHandler" stylesheets="@../Styles/accountDetails.css" text="Return to Home Page">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-               <HBox.margin>
-                  <Insets bottom="5.0" top="5.0" />
-               </HBox.margin></Button>
-         </children>
-      </HBox>
-   </top>
-   <left>
-      <VBox alignment="TOP_CENTER" prefHeight="383.0" prefWidth="195.0" style="-fx-background-color: #BDBCBC; -fx-border-color: #231F20;" BorderPane.alignment="CENTER">
-         <children>
-            <Label text="Account Information">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-            </Label>
-            <Separator prefWidth="200.0" />
-            <Pane prefHeight="111.0" prefWidth="140.0">
-               <children>
-                  <Circle fill="WHITE" layoutX="97.0" layoutY="56.0" radius="46.0" stroke="BLACK" strokeType="INSIDE" />
-               </children>
-            </Pane>
-            <Button fx:id="changeProfilePictureButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#changeProfilePictureButtonHandler" prefWidth="500.0" stylesheets="@../Styles/accountDetails.css" text="Change Profile Picture" textAlignment="CENTER">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin></Button>
-            <HBox>
-               <children>
-                  <Label text="First Name:  " />
-                  <Label fx:id="userFirstNameLabel" text="DISPLAYFIRSTNAME" />
-               </children>
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox prefHeight="22.0" prefWidth="100.0">
-               <children>
-                  <Label text="Last Name:  " />
-                  <Label fx:id="userLastNameLabel" text="DISPLAYLASTNAME" />
-               </children>
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox prefHeight="23.0" prefWidth="100.0">
-               <children>
-                  <Label text="RAMID:  " />
-                  <Label fx:id="userRAMIDLabel" text="R00000000" />
-               </children>
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-            </HBox>
-            <Button fx:id="requestPasswordResetButton" mnemonicParsing="false" onAction="#requestPasswordResetHandler" prefWidth="500.0" stylesheets="@../Styles/accountDetails.css" text="Request Password Reset">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </Button>
-            <Button fx:id="inbox" mnemonicParsing="false" onAction="#openInboxButton" prefHeight="26.0" prefWidth="500.0" stylesheets="@../Styles/accountDetails.css" text="Inbox">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin></Button>
-         </children>
-         <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin>
-      </VBox>
-   </left>
-   <center>
-      <VBox fx:id="box" style="-fx-border-color: #231F20;" BorderPane.alignment="CENTER">
-         <children>
-            <HBox alignment="CENTER">
-               <VBox.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
-               </VBox.margin>
-               <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="48.0" prefWidth="578.0" text="Your Items:" textAlignment="CENTER">
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" top="10.0" />
-                     </padding>
-                     <font>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AccountDetailsController">
+    <top>
+        <HBox alignment="CENTER" prefHeight="90.0" prefWidth="700.0" style="-fx-background-color: #416663; -fx-border-color: #231F20;" BorderPane.alignment="CENTER">
+            <children>
+                <Button fx:id="returnToHomePageButton" alignment="CENTER" onAction="#returnToHomePageHandler" stylesheets="@../Styles/accountDetails.css" text="Return to Home Page">
+                    <font>
+                        <Font name="System Bold" size="20.0" />
+                    </font>
+                    <HBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                    </HBox.margin>
+                </Button>
+            </children>
+        </HBox>
+    </top>
+    <left>
+        <VBox alignment="TOP_CENTER" prefHeight="383.0" prefWidth="195.0" style="-fx-background-color: #BDBCBC; -fx-border-color: #231F20;" BorderPane.alignment="CENTER">
+            <children>
+                <Label text="Account Information">
+                    <font>
                         <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-            <ScrollPane>
-               <content>
-                  <FlowPane fx:id="flowPane" prefHeight="606.0" prefWidth="956.0" />
-               </content>
-            </ScrollPane>
-         </children>
-      </VBox>
-   </center>
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </VBox.margin>
+                </Label>
+                <Separator prefWidth="200.0" />
+            
+                <StackPane prefHeight="111.0" prefWidth="140.0">
+                    <children>
+                        <Circle fill="WHITE" radius="46.0" stroke="BLACK" strokeType="INSIDE" StackPane.alignment="CENTER" />
+                        <ImageView fx:id="pfp" fitHeight="92.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
+                            <clip>
+                                <Circle centerX="46.0" centerY="46.0" radius="46.0" />
+                            </clip>
+                        </ImageView>
+                    </children>
+                </StackPane>
+
+            
+                <Button fx:id="changeProfilePictureButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#changeProfilePictureButtonHandler" prefWidth="500.0" stylesheets="@../Styles/accountDetails.css" text="Change Profile Picture" textAlignment="CENTER">
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                </Button>
+                <HBox>
+                    <children>
+                        <Label text="First Name:  " />
+                        <Label fx:id="userFirstNameLabel" text="DISPLAYFIRSTNAME" />
+                    </children>
+                    <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </VBox.margin>
+                </HBox>
+                <HBox prefHeight="22.0" prefWidth="100.0">
+                    <children>
+                        <Label text="Last Name:  " />
+                        <Label fx:id="userLastNameLabel" text="DISPLAYLASTNAME" />
+                    </children>
+                    <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </VBox.margin>
+                </HBox>
+                <HBox prefHeight="23.0" prefWidth="100.0">
+                    <children>
+                        <Label text="RAMID:  " />
+                        <Label fx:id="userRAMIDLabel" text="R00000000" />
+                    </children>
+                    <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </VBox.margin>
+                </HBox>
+                <Button fx:id="requestPasswordResetButton" mnemonicParsing="false" onAction="#requestPasswordResetHandler" prefWidth="500.0" stylesheets="@../Styles/accountDetails.css" text="Request Password Reset">
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                </Button>
+                <Button fx:id="inbox" mnemonicParsing="false" onAction="#openInboxButton" prefHeight="26.0" prefWidth="500.0" stylesheets="@../Styles/accountDetails.css" text="Inbox">
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                </Button>
+            </children>
+            <BorderPane.margin>
+                <Insets />
+            </BorderPane.margin>
+        </VBox>
+    </left>
+    <center>
+        <VBox fx:id="box" style="-fx-border-color: #231F20;" BorderPane.alignment="CENTER">
+            <children>
+                <HBox alignment="CENTER">
+                    <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
+                    </VBox.margin>
+                    <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="48.0" prefWidth="578.0" text="Your Items:" textAlignment="CENTER">
+                            <padding>
+                                <Insets bottom="10.0" left="10.0" top="10.0" />
+                            </padding>
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+                <ScrollPane>
+                    <content>
+                        <FlowPane fx:id="flowPane" prefHeight="606.0" prefWidth="956.0" />
+                    </content>
+                </ScrollPane>
+            </children>
+        </VBox>
+    </center>
 </BorderPane>

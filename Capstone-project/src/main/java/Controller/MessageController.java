@@ -49,7 +49,7 @@ public class MessageController {
         String content = messageTextField.getText();
         if (!content.isEmpty() && receiverId != null) {
             //Current date and time
-            Date timestamp = new Date(); 
+            Date timestamp = new Date();
             Message message = new Message(senderId, receiverId, content, timestamp);
             messagingService.sendMessage(message);
             loadMessages(senderId, receiverId);
@@ -74,7 +74,7 @@ public class MessageController {
                 String messageText = message.getContent();
                 String displayText = senderName + ": " + messageText;
 
-                // Add the message to the ObservableList
+                //Add the message to the ObservableList
                 messageList.add(displayText);
                 System.out.println("Message added to the ObservableList: " + displayText);
             }

@@ -71,7 +71,7 @@ public class LoginController {
                     String lastName = document.getString("LastName");
 
                     CurrentUser.login(firstName, lastName, "PROTECTED", ramid);
-                     //Redirect to home page
+                    //Redirect to home page
                     App.switchScene("home");
                 } else {
                     //Incorrect password

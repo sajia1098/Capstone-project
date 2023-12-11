@@ -8,13 +8,23 @@ import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
+import com.google.cloud.storage.BlobId;
+import com.google.cloud.storage.BlobInfo;
+import com.google.cloud.storage.Storage;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.cloud.StorageClient;
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Files;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ExecutionException;
-import javafx.event.ActionEvent;
+import java.util.concurrent.TimeUnit;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -22,8 +32,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.stage.FileChooser;
 import project.App;
 import project.FireStoreContext;
 
@@ -65,6 +75,9 @@ public class RegistrationController {
     @FXML
     private Button cycleProfile;
 
+    //default image URL
+    private String currentProfilePic = "/Assets/Profile/default_image.png";
+
     public RegistrationController() {
         FireStoreContext fireStoreContext = new FireStoreContext();
         this.db = fireStoreContext.firebase();
@@ -79,7 +92,7 @@ public class RegistrationController {
         defaultImageView2.setImage(img2);
         Image img3 = new Image("/Assets/Profile/pic2.png");
         defaultImageView3.setImage(img3);
-        
+
         Image img4 = new Image("/Assets/Profile/pic3.png");
         defaultImageView4.setImage(img4);
 
@@ -93,42 +106,54 @@ public class RegistrationController {
             defaultImageView2.setVisible(true);
             defaultImageView3.setVisible(false);
             defaultImageView4.setVisible(false);
-
-        } 
-        else if(defaultImageView2.isVisible())
-        {
-           defaultImageView1.setVisible(false);
-           defaultImageView2.setVisible(false);
-           defaultImageView3.setVisible(true);
-           defaultImageView4.setVisible(false);
-
-        }
-        else if (defaultImageView3.isVisible()){
-           defaultImageView1.setVisible(false);
-           defaultImageView2.setVisible(false);
-           defaultImageView3.setVisible(false);
-           defaultImageView4.setVisible(true);
-        }
-        else if (defaultImageView4.isVisible()){
-           defaultImageView1.setVisible(true);
-           defaultImageView2.setVisible(false);
-           defaultImageView3.setVisible(false);
-           defaultImageView4.setVisible(false);
+            currentProfilePic = "/Assets/Profile/default_image1.png";
+        } else if (defaultImageView2.isVisible()) {
+            defaultImageView1.setVisible(false);
+            defaultImageView2.setVisible(false);
+            defaultImageView3.setVisible(true);
+            defaultImageView4.setVisible(false);
+            currentProfilePic = "/Assets/Profile/pic2.png";
+        } else if (defaultImageView3.isVisible()) {
+            defaultImageView1.setVisible(false);
+            defaultImageView2.setVisible(false);
+            defaultImageView3.setVisible(false);
+            defaultImageView4.setVisible(true);
+            currentProfilePic = "/Assets/Profile/pic3.png";
+        } else if (defaultImageView4.isVisible()) {
+            defaultImageView1.setVisible(true);
+            defaultImageView2.setVisible(false);
+            defaultImageView3.setVisible(false);
+            defaultImageView4.setVisible(false);
+            currentProfilePic = "/Assets/Profile/default_image.png";
         }
     }
 
     @FXML
     private void cycleProfilePictureButtonClicked() {
         toggleImage();
+        System.out.println("Current Profile Picture is " + currentProfilePic);
     }
 
     @FXML
     private void uploadProfileButtonClicked() {
-        //TODO UPLOAD PROFILE FROM DESKTOP
-        //ADD CODE TO UPLOAD TOGETHER WITH LOGIN INFORMATION TO DATABASE
+        try {
+            //Get image file from the user
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.bmp")
+            );
+            fileChooser.setTitle("Select Profile Picture");
+
+            File file = fileChooser.showOpenDialog(null);
+
+            if (file != null) {
+                uploadFileToFirebaseStorage(file);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    
     @FXML
     private void signupButtonClicked() throws IOException {
         if (areFieldsValid()) {
@@ -190,6 +215,7 @@ public class RegistrationController {
         userData.put("LastName", last_name.getText().trim());
         userData.put("RamID", ramid.getText().trim());
         userData.put("PasswordHash", hashedPassword);
+        userData.put("ProfilePicUrl", currentProfilePic);
 
         //Add user to the database
         docRef.set(userData);
@@ -220,7 +246,42 @@ public class RegistrationController {
         alert.showAndWait();
     }
 
-    @FXML
-    private void uploadProfileButtonClicked(ActionEvent event) {
+    private void uploadFileToFirebaseStorage(File file) throws IOException {
+        if (FirebaseApp.getApps().isEmpty()) {
+            System.out.println("Firebase has not been initialized");
+            return;
+        }
+
+        FirebaseApp firebaseApp = FirebaseApp.getInstance();
+        Storage storage = StorageClient.getInstance(firebaseApp).bucket("csc325-capstone.appspot.com").getStorage();
+
+        String objectName = "profilepictures/" + UUID.randomUUID().toString();
+        String contentType = Files.probeContentType(file.toPath());
+        BlobId blobId = BlobId.of("csc325-capstone.appspot.com", objectName);
+        BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType(contentType).build();
+
+        storage.create(blobInfo, Files.readAllBytes(file.toPath()));
+
+        URL signedUrl = storage.signUrl(blobInfo, 7, TimeUnit.DAYS, Storage.SignUrlOption.withV4Signature());
+
+        Platform.runLater(() -> {
+            try {
+                currentProfilePic = signedUrl.toString(); // Update current profile picture URL
+
+                //Update all defaultImageViews to be invisible
+                defaultImageView1.setVisible(false);
+                defaultImageView2.setVisible(false);
+                defaultImageView3.setVisible(false);
+                defaultImageView4.setVisible(false);
+
+                //Load and display the uploaded image in one of the ImageViews, let's use defaultImageView1 for example
+                Image image = new Image(currentProfilePic);
+                defaultImageView1.setImage(image);
+                defaultImageView1.setVisible(true);
+            } catch (Exception e) {
+                System.err.println("Exception occurred while setting image to ImageView: " + e.getMessage());
+                e.printStackTrace();
+            }
+        });
     }
 }
