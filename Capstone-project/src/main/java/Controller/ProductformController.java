@@ -195,7 +195,7 @@ public class ProductformController implements Initializable {
         Storage storage = StorageClient.getInstance(firebaseApp).bucket("csc325-capstone.appspot.com").getStorage();
 
         //Prepare file to be uploaded
-        String objectName = UUID.randomUUID().toString();
+        String objectName = "products/" + UUID.randomUUID().toString();
         String contentType = Files.probeContentType(file.toPath());
         BlobId blobId = BlobId.of("csc325-capstone.appspot.com", objectName);
         BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType(contentType).build();

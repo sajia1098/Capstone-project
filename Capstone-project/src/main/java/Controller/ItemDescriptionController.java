@@ -6,6 +6,7 @@ package Controller;
  */
 import Model.Item;
 import Model.ItemDetails;
+import Model.SharedResource;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -27,7 +28,7 @@ import project.App;
  *
  * @author amnasajid
  */
-public class ItemDescriptionController implements Initializable{
+public class ItemDescriptionController implements Initializable {
 
     @FXML
     private ImageView productImageView;
@@ -43,22 +44,28 @@ public class ItemDescriptionController implements Initializable{
     private Button bnHome;
     @FXML
     private Button openMessageButton;
-    
+
+    @FXML
+    private Label userInfoLabel;
+    private String ownerId;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //Retrieve item details
         Item currentItem = ItemDetails.getInstance().getCurrentItem();
-        
+
         //Setup view with currentitem
         setItemDetails(currentItem);
     }
-    
+
     public void setItemDetails(Item details) {
         productNameLabel.setText(details.getProductName());
         productPriceLabel.setText(String.format("%.2f", details.getPrice()));
         productImageView.setImage(new Image(details.getImageUrl()));
         productConditionLabel.setText(details.getCondition());
         productCategoryLabel.setText(details.getCategory());
+        this.ownerId = details.getOwnerId();
+        userInfoLabel.setText("RAMID: " + details.getOwnerId());
     }
 
     @FXML
@@ -69,14 +76,18 @@ public class ItemDescriptionController implements Initializable{
             e.printStackTrace();
         }
     }
-    
-    
+
     @FXML
-    public void openMessaging () {
-        try {
-            App.switchScene("message");
-        } catch (IOException e) {
-            e.printStackTrace();
+    public void openMessaging() {
+        Item currentItem = ItemDetails.getInstance().getCurrentItem();
+        if (currentItem != null) {
+            SharedResource.getInstance().setOwnerId(currentItem.getOwnerId());
+            // Now open the messaging view
+            try {
+                App.switchScene("message");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

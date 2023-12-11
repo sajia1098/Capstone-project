@@ -12,8 +12,8 @@ public class Brand extends Item {
 
     private String brand;
 
-    public Brand(String brand, String category, String comments, String condition, String description, double price, String imageUrl, String productName) {
-        super(category, comments, condition, description, price, imageUrl, productName);
+    public Brand(String brand, String category, String comments, String condition, String description, double price, String imageUrl, String productName, String ownerId) {
+        super(category, comments, condition, description, price, imageUrl, productName, ownerId);
         this.brand = brand;
     }
 

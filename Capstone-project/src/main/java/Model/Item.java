@@ -17,8 +17,9 @@ public class Item {
     private double price;
     private String imageUrl;
     private String productName;
+    private String ownerId;
 
-    public Item(String category, String comments, String condition, String description, double price, String imageUrl, String productName) {
+    public Item(String category, String comments, String condition, String description, double price, String imageUrl, String productName, String ownerId) {
         this.category = category;
         this.comments = comments;
         this.condition = condition;
@@ -26,6 +27,7 @@ public class Item {
         this.price = price;
         this.imageUrl = imageUrl;
         this.productName = productName;
+        this.ownerId = ownerId;
     }
 
     public Item() {
@@ -47,20 +49,20 @@ public class Item {
         this.comments = comments;
     }
 
-    public void setCondition(String condition) {
-        this.condition = condition;
-    }
-
-    public String getCondition() {
-        return condition;
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getCondition() {
+        return condition;
+    }
+
+    public void setCondition(String condition) {
+        this.condition = condition;
     }
 
     public double getPrice() {
@@ -85,5 +87,13 @@ public class Item {
 
     public void setProductName(String productName) {
         this.productName = productName;
+    }
+
+    public String getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
     }
 }
