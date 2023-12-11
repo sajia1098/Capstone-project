@@ -30,11 +30,11 @@ import java.util.concurrent.Executors;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
-import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import project.App;
 import project.FireStoreContext;
+import javafx.geometry.Insets;
 
 /**
  *
@@ -60,6 +60,14 @@ public class HomeController implements Initializable {
     private Button logoutButton;
     @FXML
     private Button accountDetailsButton;
+    @FXML
+    private Button clothesBtn;
+    @FXML
+    private Button textbookBtn;
+    @FXML
+    private Button electronicsBtn;
+
+    private boolean isActionInProgress = false;
 
     private Timer searchTimer = new Timer();
 
@@ -71,17 +79,6 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        ObservableList<String> items = FXCollections.observableArrayList(
-//                "View Profile",
-//                "Settings"
-//        );
-//        comboBox.setItems(items);
-//        comboBox.setValue("......");
-//        //Horizontal gap between images
-//        flowPane.setHgap(20);
-//        //Vertical gap between images
-//        flowPane.setVgap(15);
-
         //Fetch and display user details for Welcome message
         fetchUserDetails();
 
@@ -107,7 +104,7 @@ public class HomeController implements Initializable {
                     });
                 }
                 //Adjust this delay to make more responsive, but will trigger duplicates if typed fast
-            }, 500); 
+            }, 500);
         });
     }
 
@@ -163,6 +160,11 @@ public class HomeController implements Initializable {
 
     @FXML
     private void showImage(ActionEvent event) {
+        if (isActionInProgress) {
+            return;
+        }
+        isActionInProgress = true;
+
         //Clears flowpane before pulling images from database
         flowPane.getChildren().clear();
 
@@ -187,6 +189,7 @@ public class HomeController implements Initializable {
                         String category = (String) item.get("category");
                         String comments = (String) item.get("comments");
                         String description = (String) item.get("description");
+                        String ownerId = (String) item.get("RamID");
 
                         Image image = new Image(imageUrl);
                         Platform.runLater(() -> {
@@ -196,7 +199,7 @@ public class HomeController implements Initializable {
 
                             imageView.setOnMouseClicked(event -> {
                                 double priceValue = Double.parseDouble(productPrice);
-                                Item itemClass = new Item(category, comments, condition, description, priceValue, imageUrl, productName);
+                                Item itemClass = new Item(category, comments, condition, description, priceValue, imageUrl, productName, ownerId);
                                 openItemDetail(itemClass);
                             });
 
@@ -212,6 +215,8 @@ public class HomeController implements Initializable {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
+                } finally {
+                    isActionInProgress = false;
                 }
                 return null;
             }
@@ -247,6 +252,11 @@ public class HomeController implements Initializable {
     }
 
     private void showImagesByCategory(String category) {
+        if (isActionInProgress) {
+            return;
+        }
+        isActionInProgress = true;
+
         flowPane.getChildren().clear();
 
         Task<Void> loadCategoryImagesTask = new Task<Void>() {
@@ -271,7 +281,7 @@ public class HomeController implements Initializable {
                         String category = (String) item.get("category");
                         String comments = (String) item.get("comments");
                         String description = (String) item.get("description");
-
+                        String ownerId = (String) item.get("RamID");
                         Image image = new Image(imageUrl);
                         Platform.runLater(() -> {
                             ImageView imageView = new ImageView(image);
@@ -280,7 +290,7 @@ public class HomeController implements Initializable {
 
                             imageView.setOnMouseClicked(event -> {
                                 double priceValue = Double.parseDouble(productPrice);
-                                Item itemClass = new Item(category, comments, condition, description, priceValue, imageUrl, productName);
+                                Item itemClass = new Item(category, comments, condition, description, priceValue, imageUrl, productName, ownerId);
                                 openItemDetail(itemClass);
                             });
 
@@ -289,11 +299,14 @@ public class HomeController implements Initializable {
                             Label conditionLabel = new Label("Condition: " + condition);
                             Label categoryLabel = new Label("Category: " + category);
                             VBox imageAndDescription = new VBox(imageView, nameLabel, priceLabel, conditionLabel, categoryLabel);
+                            imageAndDescription.setPadding(new Insets(10));
                             addItemToFlowPane(imageAndDescription);
                         });
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
+                } finally {
+                    isActionInProgress = false;
                 }
                 return null;
             }
@@ -304,9 +317,15 @@ public class HomeController implements Initializable {
     }
 
     private void performLiveSearch(String searchText) {
+
+        if (isActionInProgress) {
+            return;
+        }
+        isActionInProgress = true;
+
         //debug line
         System.out.println("Searching for: " + searchText);
-        // Clear existing content in the flowPane
+        //Clear existing content in the flowPane
         flowPane.getChildren().clear();
 
         Task<Void> searchTask = new Task<Void>() {
@@ -331,7 +350,8 @@ public class HomeController implements Initializable {
                         String category = (String) item.get("category");
                         String comments = (String) item.get("comments");
                         String description = (String) item.get("description");
-
+                        String ownerId = (String) item.get("RamID");
+                        
                         Image image = new Image(imageUrl);
                         Platform.runLater(() -> {
                             ImageView imageView = new ImageView(image);
@@ -340,7 +360,7 @@ public class HomeController implements Initializable {
 
                             imageView.setOnMouseClicked(event -> {
                                 double priceValue = Double.parseDouble(productPrice);
-                                Item itemClass = new Item(category, comments, condition, description, priceValue, imageUrl, productName);
+                                Item itemClass = new Item(category, comments, condition, description, priceValue, imageUrl, productName, ownerId);
                                 openItemDetail(itemClass);
                             });
 
@@ -355,6 +375,8 @@ public class HomeController implements Initializable {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
+                } finally {
+                    isActionInProgress = false;
                 }
                 return null;
             }

@@ -141,7 +141,8 @@ private void showImagesByCategory(String category) {
                         String category = (String) item.get("category");
                         String comments = (String) item.get("comments");
                         String description = (String) item.get("description");
-
+                        String ownerId = (String) item.get("RamID");
+                        
                         Image image = new Image(imageUrl);
                         Platform.runLater(() -> {
                             ImageView imageView = new ImageView(image);
@@ -150,7 +151,7 @@ private void showImagesByCategory(String category) {
 
                             imageView.setOnMouseClicked(event -> {
                                 double priceValue = Double.parseDouble(productPrice);
-                                Item itemClass = new Item(category, comments, condition, description, priceValue, imageUrl, productName);
+                                Item itemClass = new Item(category, comments, condition, description, priceValue, imageUrl, productName, ownerId);
                                 openItemDetail(itemClass);
                             });
 

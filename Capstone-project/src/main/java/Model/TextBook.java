@@ -14,8 +14,8 @@ public class TextBook extends Item {
     private String isbn;
     private int edition;
 
-    public TextBook(String title, String isbn, int edition, String category, String comments, String condition, String description, double price, String imageUrl, String productName) {
-        super(category, comments, condition, description, price, imageUrl, productName);
+    public TextBook(String title, String isbn, int edition, String category, String comments, String condition, String description, double price, String imageUrl, String productName, String ownerId) {
+        super(category, comments, condition, description, price, imageUrl, productName, ownerId);
         this.title = title;
         this.isbn = isbn;
         this.edition = edition;

@@ -11,6 +11,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 public class Messaging_sr {
+
     private final Firestore firestore;
 
     public Messaging_sr(Firestore firestore) {
@@ -27,47 +28,45 @@ public class Messaging_sr {
     }
 
     public List<Message> getMessages(String senderId, String receiverId) {
-    List<Message> messages = new ArrayList<>();
+        List<Message> messages = new ArrayList<>();
 
-    try {
-        System.out.println("Fetching messages from sender to receiver");
-        // Retrieve sent messages
-        Query sentQuery = firestore.collection("messages")
-                .whereEqualTo("senderId", senderId)
-                .whereEqualTo("receiverId", receiverId)
-                .orderBy("timestamp", Query.Direction.ASCENDING);
+        try {
+            System.out.println("Fetching messages from sender to receiver");
+            // Retrieve sent messages
+            Query sentQuery = firestore.collection("messages")
+                    .whereEqualTo("senderId", senderId)
+                    .whereEqualTo("receiverId", receiverId)
+                    .orderBy("timestamp", Query.Direction.ASCENDING);
 
-        ApiFuture<QuerySnapshot> sentMessages = sentQuery.get();
-        for (QueryDocumentSnapshot document : sentMessages.get().getDocuments()) {
-            Message message = document.toObject(Message.class);
-            messages.add(message);
+            ApiFuture<QuerySnapshot> sentMessages = sentQuery.get();
+            for (QueryDocumentSnapshot document : sentMessages.get().getDocuments()) {
+                Message message = document.toObject(Message.class);
+                messages.add(message);
+            }
+
+            // Retrieve received messages
+            System.out.println("Fetching messages from receiver to sender");
+            Query receivedQuery = firestore.collection("messages")
+                    .whereEqualTo("senderId", receiverId)
+                    .whereEqualTo("receiverId", senderId)
+                    .orderBy("timestamp", Query.Direction.ASCENDING);
+
+            ApiFuture<QuerySnapshot> receivedMessages = receivedQuery.get();
+            for (QueryDocumentSnapshot document : receivedMessages.get().getDocuments()) {
+                Message message = document.toObject(Message.class);
+                messages.add(message);
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
         }
 
-        // Retrieve received messages
-        System.out.println("Fetching messages from receiver to sender");
-        Query receivedQuery = firestore.collection("messages")
-                .whereEqualTo("senderId", receiverId)
-                .whereEqualTo("receiverId", senderId)
-                .orderBy("timestamp", Query.Direction.ASCENDING);
+        // Sort messages based on timestamp
+        messages = messages.stream()
+                .filter(message -> message.getTimestamp() != null)
+                .sorted(Comparator.comparing(Message::getTimestamp))
+                .collect(Collectors.toList());
 
-        ApiFuture<QuerySnapshot> receivedMessages = receivedQuery.get();
-        for (QueryDocumentSnapshot document : receivedMessages.get().getDocuments()) {
-            Message message = document.toObject(Message.class);
-            messages.add(message);
-        }
-    } catch (InterruptedException | ExecutionException e) {
-        e.printStackTrace();
+        System.out.println("Number of messages fetched: " + messages.size());
+        return messages;
     }
-
-    // Sort messages based on timestamp
-    messages = messages.stream()
-            .filter(message -> message.getTimestamp() != null)
-            .sorted(Comparator.comparing(Message::getTimestamp))
-            .collect(Collectors.toList());
-
-    System.out.println("Number of messages fetched: " + messages.size());
-    return messages;
-}
-
-
 }
