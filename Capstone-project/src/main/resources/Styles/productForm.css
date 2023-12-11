@@ -1,0 +1,21 @@
+#cbCategory {
+    -fx-font-weight: bold;
+    -fx-background-color: #BDBCBC;
+    -fx-font-size: 12;
+    -fx-text-fill: black;
+    -fx-border-color: black;
+}
+
+.button {
+    -fx-font-weight: bold;
+    -fx-background-color: #BDBCBC;
+    -fx-font-size: 12;
+    -fx-text-fill: black;
+    -fx-cursor: pointer;
+    -fx-border-color: black;
+    -fx-transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    -fx-background-color: #5a5a5a;
+}

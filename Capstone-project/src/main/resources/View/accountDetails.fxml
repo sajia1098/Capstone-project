@@ -13,13 +13,13 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AccountDetailsController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AccountDetailsController">
    <top>
       <HBox alignment="CENTER" prefHeight="90.0" prefWidth="700.0" style="-fx-background-color: #416663; -fx-border-color: #231F20;" BorderPane.alignment="CENTER">
          <children>
-              <Button fx:id="returnToHomePageButton" alignment="CENTER" onAction="#returnToHomePageHandler" prefHeight="143.0" prefWidth="138.0" stylesheets="@../Styles/accountDetails.css" text="Return to Home Page">
+              <Button fx:id="returnToHomePageButton" alignment="CENTER" onAction="#returnToHomePageHandler" stylesheets="@../Styles/accountDetails.css" text="Return to Home Page">
                <font>
-                  <Font name="System Bold" size="12.0" />
+                  <Font name="System Bold" size="20.0" />
                </font>
                <HBox.margin>
                   <Insets bottom="5.0" top="5.0" />
@@ -108,9 +108,9 @@
                   </Label>
                </children>
             </HBox>
-            <ScrollPane prefHeight="391.0" prefWidth="505.0">
+            <ScrollPane>
                <content>
-                  <FlowPane fx:id="flowPane" prefHeight="400.0" prefWidth="500.0" />
+                  <FlowPane fx:id="flowPane" prefHeight="606.0" prefWidth="956.0" />
                </content>
             </ScrollPane>
          </children>

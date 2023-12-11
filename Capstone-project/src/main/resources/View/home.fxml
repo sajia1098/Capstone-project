@@ -15,7 +15,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="689.0" prefWidth="953.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HomeController">
+<BorderPane prefHeight="700.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HomeController">
    <top>
           <AnchorPane prefWidth="954.0" style="-fx-background-color: #416663; -fx-border-color: #000000;" BorderPane.alignment="CENTER">
               <children>
