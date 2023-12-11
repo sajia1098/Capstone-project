@@ -1,0 +1,51 @@
+#backToLogin {
+    -fx-font-weight: bold;
+    -fx-background-color: black;
+    -fx-font-size: 18;
+    -fx-text-fill: white;
+    -fx-cursor: pointer;
+    -fx-transition: background-color 0.3s ease;
+}
+
+#backToLogin:hover {
+    -fx-background-color: #434343;
+}
+
+#uploadProfile {
+    -fx-font-weight: bold;
+    -fx-background-color: black;
+    -fx-font-size: 18;
+    -fx-text-fill: white;
+    -fx-cursor: pointer;
+    -fx-transition: background-color 0.3s ease;
+}
+
+#uploadProfile:hover {
+    -fx-background-color: #434343;
+}
+
+#signup_button {
+    -fx-font-weight: bold;
+    -fx-background-color: black;
+    -fx-font-size: 28;
+    -fx-text-fill: white;
+    -fx-cursor: pointer;
+    -fx-transition: background-color 0.3s ease;
+}
+
+#signup_button:hover {
+    -fx-background-color: #434343;
+}
+
+#cycleProfile {
+    -fx-font-weight: bold;
+    -fx-background-color: black;
+    -fx-font-size: 12;
+    -fx-text-fill: white;
+    -fx-cursor: pointer;
+    -fx-transition: background-color 0.3s ease;
+}
+
+#cycleProfile:hover {
+    -fx-background-color: #434343;
+}
