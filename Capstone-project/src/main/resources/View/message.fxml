@@ -3,19 +3,17 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<BorderPane prefHeight="700.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MessageController">
+<BorderPane prefHeight="700.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MessageController">
    <center>
       <VBox alignment="TOP_CENTER" style="-fx-border-color: #000000; -fx-background-color: #BCBCBC;">
          <children>
-              <ListView fx:id="messageListView" items="${messageList}" />
+              <ListView fx:id="messageListView" />
          </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -37,16 +35,6 @@
    <bottom>
       <VBox alignment="TOP_CENTER" spacing="10.0" style="-fx-border-color: #000000; -fx-background-color: #BCBCBC;" BorderPane.alignment="CENTER">
          <children>
-              <TextField fx:id="sendMessageTo" prefHeight="26.0" prefWidth="94.0" promptText="userId">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </TextField>
-              <Label text="To">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </Label>
               <TextField fx:id="messageTextField" alignment="CENTER" prefHeight="100.0" promptText="Write a Message">
                <opaqueInsets>
                   <Insets />
